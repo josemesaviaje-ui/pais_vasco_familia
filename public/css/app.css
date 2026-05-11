@@ -4341,3 +4341,226 @@ select{
     padding-bottom:140px !important;
   }
 }
+/* =====================================================
+   MOBILE FINAL REAL · APP COMPACTA
+===================================================== */
+
+@media(max-width:760px){
+
+  body{
+    overflow-x:hidden !important;
+  }
+
+  .app-shell{
+    max-width:none !important;
+    width:100% !important;
+    overflow-x:hidden !important;
+  }
+
+  .hero{
+    min-height:auto !important;
+    padding:18px 14px 18px !important;
+    border-radius:0 0 24px 24px !important;
+  }
+
+  .hero-top{
+    grid-template-columns:1fr !important;
+    gap:6px !important;
+  }
+
+  .eyebrow{
+    font-size:.88rem !important;
+    margin-bottom:4px !important;
+  }
+
+  .hero h1{
+    max-width:none !important;
+    font-size:1.85rem !important;
+    line-height:1 !important;
+    margin:0 !important;
+  }
+
+  .hero .subtitle{
+    max-width:none !important;
+    font-size:.92rem !important;
+    line-height:1.2 !important;
+    margin-top:6px !important;
+  }
+
+  .dashboard-grid{
+    margin-top:16px !important;
+    display:grid !important;
+    grid-template-columns:repeat(2, 1fr) !important;
+    gap:10px !important;
+  }
+
+  .dash-card{
+    min-height:92px !important;
+    padding:12px !important;
+    border-radius:20px !important;
+  }
+
+  .dash-card.main{
+    grid-column:auto !important;
+  }
+
+  .dash-card .sketch-icon,
+  .sketch-icon{
+    font-size:1.1rem !important;
+  }
+
+  .dash-card p{
+    font-size:.72rem !important;
+    margin:4px 0 !important;
+  }
+
+  .dash-card strong{
+    font-size:.92rem !important;
+    line-height:1.08 !important;
+  }
+
+  .dash-card small{
+    font-size:.72rem !important;
+  }
+
+  .next-stop-card{
+    grid-column:1 / -1 !important;
+  }
+
+  .today-card{
+    padding:14px !important;
+    border-radius:22px !important;
+  }
+
+  .today-card h3{
+    font-size:1.05rem !important;
+    line-height:1.1 !important;
+  }
+
+  .today-card p{
+    font-size:.82rem !important;
+  }
+
+  .quick-actions{
+    grid-template-columns:repeat(2,1fr) !important;
+    gap:10px !important;
+  }
+
+  .quick-actions button{
+    padding:12px 8px !important;
+    border-radius:18px !important;
+    font-size:.82rem !important;
+  }
+
+  .weather-panel,
+  .info-card,
+  .note-card,
+  .route-timeline-card,
+  .more-card,
+  .lock-card{
+    border-radius:22px !important;
+    padding:14px !important;
+  }
+
+  .section-title{
+    margin-bottom:14px !important;
+  }
+
+  .section-title > span{
+    width:42px !important;
+    height:42px !important;
+    min-width:42px !important;
+    font-size:1.35rem !important;
+  }
+
+  .section-title h2{
+    font-size:1.35rem !important;
+  }
+
+  .section-title p{
+    font-size:.84rem !important;
+  }
+
+  .main-content{
+    padding:16px 12px 92px !important;
+  }
+
+  .days-tabs{
+    display:grid !important;
+    grid-template-columns:repeat(4, 1fr) !important;
+    gap:6px !important;
+    overflow:visible !important;
+  }
+
+  .day-tab{
+    min-width:0 !important;
+    width:100% !important;
+    padding:9px 4px !important;
+    border-radius:14px !important;
+    font-size:.68rem !important;
+    white-space:normal !important;
+    line-height:1.05 !important;
+  }
+
+  .day-grid{
+    display:grid !important;
+    grid-template-columns:1fr !important;
+    gap:12px !important;
+  }
+
+  .meta-line{
+    gap:6px !important;
+  }
+
+  .pill{
+    padding:6px 8px !important;
+    font-size:.68rem !important;
+    border-radius:999px !important;
+  }
+
+  .bottom-nav{
+    position:fixed !important;
+    left:8px !important;
+    right:8px !important;
+    bottom:8px !important;
+    width:auto !important;
+    max-width:none !important;
+    transform:none !important;
+
+    display:grid !important;
+    grid-template-columns:repeat(9, 1fr) !important;
+    gap:2px !important;
+
+    padding:6px !important;
+    border-radius:22px !important;
+    overflow:visible !important;
+
+    background:rgba(255,250,242,.97) !important;
+    z-index:9999 !important;
+  }
+
+  .bottom-nav button{
+    min-width:0 !important;
+    width:100% !important;
+    height:52px !important;
+    padding:4px 2px !important;
+    border-radius:16px !important;
+    font-size:.95rem !important;
+    flex:none !important;
+  }
+
+  .bottom-nav button span{
+    font-size:.55rem !important;
+    margin-top:3px !important;
+    white-space:nowrap !important;
+  }
+
+  .bottom-nav button.active{
+    background:#355c4b !important;
+    color:#fffaf2 !important;
+  }
+
+  .chat-form{
+    bottom:74px !important;
+  }
+}
