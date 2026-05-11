@@ -324,28 +324,232 @@
             <p>Mensajes locales ahora. Después chat sincronizado en tiempo real.</p>
           </div>
         </div>
+        
+        <div class="chat-whatsapp-card">
+  <div>
+    <strong>💚 Grupo WhatsApp del viaje</strong>
+    <p>Para avisos rápidos, ubicación, fotos o mensajes importantes.</p>
+  </div>
+
+  <a
+    id="whatsappGroupBtn"
+    href="https://chat.whatsapp.com/B6B0ua6z8tCDxSBVLvFCNE"
+    target="_blank"
+    rel="noopener"
+  >
+    Abrir grupo
+  </a>
+</div>
+
+<details class="chat-avatar-picker">
+  <summary>
+    <span>🎭 Personalizar avatares</span>
+    <small>Elegir iconos del chat</small>
+  </summary>
+
+  <div class="avatar-picker-grid">
+
+    <label>
+      Jose Antonio
+      <select data-avatar-person="Jose Antonio">
+        <option value="😎">😎</option>
+        <option value="🧔🏻">🧔🏻</option>
+        <option value="🚐">🚐</option>
+        <option value="📸">📸</option>
+        <option value="🧭">🧭</option>
+        <option value="🔥">🔥</option>
+      </select>
+    </label>
+
+    <label>
+      Pilar
+      <select data-avatar-person="Pilar">
+        <option value="🌸">🌸</option>
+        <option value="👩🏻">👩🏻</option>
+        <option value="🌊">🌊</option>
+        <option value="🌅">🌅</option>
+        <option value="📷">📷</option>
+        <option value="⭐">⭐</option>
+      </select>
+    </label>
+
+    <label>
+      Jose Antonio Jr.
+      <select data-avatar-person="Jose Antonio Jr.">
+        <option value="🎮">🎮</option>
+        <option value="🧑🏻">🧑🏻</option>
+        <option value="😎">😎</option>
+        <option value="🏄🏻">🏄🏻</option>
+        <option value="⚽">⚽</option>
+        <option value="🔥">🔥</option>
+      </select>
+    </label>
+
+    <label>
+      Alejandra
+      <select data-avatar-person="Alejandra">
+        <option value="📸">📸</option>
+        <option value="👧🏻">👧🏻</option>
+        <option value="🦋">🦋</option>
+        <option value="🌸">🌸</option>
+        <option value="🌊">🌊</option>
+        <option value="⭐">⭐</option>
+      </select>
+    </label>
+
+    <label>
+      María Jose
+      <select data-avatar-person="María Jose">
+        <option value="🌺">🌺</option>
+        <option value="👩🏻">👩🏻</option>
+        <option value="🌸">🌸</option>
+        <option value="🏡">🏡</option>
+        <option value="☀️">☀️</option>
+        <option value="📷">📷</option>
+      </select>
+    </label>
+
+    <label>
+      Víctor
+      <select data-avatar-person="Víctor">
+        <option value="🚗">🚗</option>
+        <option value="👨🏻">👨🏻</option>
+        <option value="😎">😎</option>
+        <option value="🧭">🧭</option>
+        <option value="🔥">🔥</option>
+        <option value="🍢">🍢</option>
+      </select>
+    </label>
+
+    <label>
+      Victoria
+      <select data-avatar-person="Victoria">
+        <option value="⭐">⭐</option>
+        <option value="👧🏻">👧🏻</option>
+        <option value="🌊">🌊</option>
+        <option value="🦋">🦋</option>
+        <option value="📸">📸</option>
+        <option value="🌅">🌅</option>
+      </select>
+    </label>
+
+    <label>
+      Alejandro
+      <select data-avatar-person="Alejandro">
+        <option value="🏄🏻">🏄🏻</option>
+        <option value="🧒🏻">🧒🏻</option>
+        <option value="⚽">⚽</option>
+        <option value="🎒">🎒</option>
+        <option value="🔥">🔥</option>
+        <option value="🚗">🚗</option>
+      </select>
+    </label>
+
+    <label>
+      María
+      <select data-avatar-person="María">
+        <option value="🦋">🦋</option>
+        <option value="👧🏻">👧🏻</option>
+        <option value="🌸">🌸</option>
+        <option value="⭐">⭐</option>
+        <option value="📷">📷</option>
+        <option value="🌊">🌊</option>
+      </select>
+    </label>
+
+    <label>
+      Mesa - Muñoz
+      <select data-avatar-person="Familia Mesa - Muñoz">
+        <option value="🚐">🚐</option>
+        <option value="🏕️">🏕️</option>
+        <option value="🗺️">🗺️</option>
+        <option value="🌅">🌅</option>
+        <option value="💚">💚</option>
+      </select>
+    </label>
+
+    <label>
+      Pulido - Cubero
+      <select data-avatar-person="Familia Pulido - Cubero">
+        <option value="🏡">🏡</option>
+        <option value="🚗">🚗</option>
+        <option value="🐚">🐚</option>
+        <option value="🌊">🌊</option>
+        <option value="🧡">🧡</option>
+      </select>
+    </label>
+
+  </div>
+</details>
 
         <div id="chatBox" class="chat-box"></div>
-
+        
+        <div id="replyPreview" class="reply-preview hidden"></div>
         <form id="chatForm" class="chat-form">
 
-  <select name="author">
-    <option>Familia Pulido - Cubero</option>
+  <select name="author" id="chatAuthorSelect">
+    <option>Jose Antonio</option>
+    <option>Pilar</option>
+    <option>Jose Antonio Jr.</option>
+    <option>Alejandra</option>
+
+    <option>María Jose</option>
+    <option>Víctor</option>
+    <option>Victoria</option>
+    <option>Alejandro</option>
+    <option>María</option>
+
     <option>Familia Mesa - Muñoz</option>
+    <option>Familia Pulido - Cubero</option>
     <option>Mensaje del viaje</option>
   </select>
 
-  <input
-    name="message"
-    placeholder="Escribe un mensaje..."
-    required
-  />
+  <div class="chat-input-wrap">
+    <button type="button" id="emojiBtn" class="chat-tool-btn">
+      😊
+    </button>
+
+    <input
+      name="message"
+      id="chatMessageInput"
+      placeholder="Escribe un mensaje..."
+      required
+    />
+
+    <label class="chat-tool-btn chat-attach-btn">
+      📎
+      <input
+        id="chatPhotoInput"
+        type="file"
+        accept="image/*"
+        hidden
+      />
+    </label>
+  </div>
 
   <button>
     Enviar
   </button>
 
 </form>
+
+<div id="emojiPanel" class="emoji-panel hidden">
+  <button>😂</button>
+  <button>😍</button>
+  <button>🥳</button>
+  <button>❤️</button>
+  <button>👏</button>
+  <button>🙌</button>
+  <button>😎</button>
+  <button>🚗</button>
+  <button>🌊</button>
+  <button>📸</button>
+  <button>🍢</button>
+  <button>☔</button>
+  <button>⭐</button>
+  <button>✅</button>
+  <button>🔥</button>
+</div>
       </section>
       
       <section class="view" id="view-bookings">
@@ -603,6 +807,14 @@
       </section>
 
     </main>
+    
+    <div id="chatToast" class="chat-toast hidden">
+  <div class="chat-toast-icon">💬</div>
+  <div>
+    <strong id="chatToastAuthor">Nuevo mensaje</strong>
+    <p id="chatToastText">Tienes novedades en el chat</p>
+  </div>
+</div>
 
     <nav class="bottom-nav">
       <button class="active" data-view="home">🏠<span>Inicio</span></button>
@@ -619,7 +831,7 @@
   </div>
 
   <script src="./js/data.js"></script>
-  <script src="http://127.0.0.1:3050/socket.io/socket.io.js"></script>
+  <script src="/socket.io/socket.io.js"></script>
   <script src="./js/app.js"></script>
 </body>
 </html>

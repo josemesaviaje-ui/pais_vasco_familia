@@ -1,15 +1,5 @@
 {
-  "chat": [
-    {
-      "id": "4b6137b3-c895-4c38-899f-443534572f2a",
-      "author": "Familia Mesa - Muñoz",
-      "text": "hola",
-      "me": true,
-      "system": false,
-      "createdAt": "2026-05-11T08:06:28.128Z",
-      "updatedAt": "2026-05-11T08:06:28.172Z"
-    }
-  ],
+  "chat": [],
   "expenses": [
     {
       "id": "49adf3b6-8753-47d1-88f4-a07f1815ffcc",
@@ -27,5 +17,5 @@
   "favorites": [],
   "pending": [],
   "photos": [],
-  "updatedAt": "2026-05-11T08:51:36.944Z"
+  "updatedAt": "2026-05-11T12:10:04.231Z"
 }

@@ -16,6 +16,7 @@
   const LS_PENDING = "pv_trip_pending_v1";
   const EXPENSE_PIN = "2026";
   let expensesUnlocked = false;
+  const LS_CHAT_AVATARS = "pv_trip_chat_avatars_v1";
   
 const API_BASE =
   window.location.hostname === "127.0.0.1" ||
@@ -24,6 +25,9 @@ const API_BASE =
     : window.location.origin;
 
 let lastServerUpdatedAt = null;
+let replyingToMessage = null;
+let lastChatToastId = null;
+let chatToastTimer = null;
 let socket = null;
 
 async function apiGetState() {
@@ -85,12 +89,28 @@ async function apiDeletePhoto(id) {
 }
 
 function applyRemoteState(remote) {
-
   if (!remote) return;
+
+  const previousLastChatId =
+    state.chat && state.chat.length
+      ? state.chat[state.chat.length - 1].id
+      : null;
 
   state.chat = Array.isArray(remote.chat)
     ? remote.chat
     : [];
+
+  const latestChat =
+    state.chat.length
+      ? state.chat[state.chat.length - 1]
+      : null;
+
+  if (
+    latestChat &&
+    latestChat.id !== previousLastChatId
+  ) {
+    showChatToast(latestChat);
+  }
 
   state.photos = Array.isArray(remote.photos)
     ? remote.photos
@@ -261,6 +281,30 @@ function startLiveSync() {
 
   function safeArray(value) {
   return Array.isArray(value) ? value : [];
+}
+
+function getChatAvatars() {
+  return loadJSON(LS_CHAT_AVATARS, {
+    "Jose Antonio": "😎",
+    "Pilar": "🌸",
+    "Jose Antonio Jr.": "🎮",
+    "Alejandra": "📸",
+
+    "María Jose": "🌺",
+    "Víctor": "🚗",
+    "Victoria": "⭐",
+    "Alejandro": "🏄🏻",
+    "María": "🦋",
+
+    [FAMILY_A]: "🏡",
+    [FAMILY_B]: "🚐",
+    "Mensaje del viaje": "📌",
+    "App del viaje": "🗺️"
+  });
+}
+
+function saveChatAvatars(avatars) {
+  localStorage.setItem(LS_CHAT_AVATARS, JSON.stringify(avatars));
 }
   
   const state = {
@@ -1170,6 +1214,8 @@ async function addExpense(e) {
 
   saveExpenses();
   form.reset();
+  replyingToMessage = null;
+  renderReplyPreview();
   renderExpenses();
 
   try {
@@ -1991,27 +2037,91 @@ async function handleFlexiblePlanActions(e) {
   }
 }
 
-  function renderChat() {
+function showChatToast(msg) {
+  if (!msg || msg.system) return;
+
+  const currentAuthor = localStorage.getItem("pv_trip_my_author_v1");
+
+  if (msg.author === currentAuthor) return;
+  if (msg.id === lastChatToastId) return;
+
+  lastChatToastId = msg.id;
+
+  const toast = $("chatToast");
+  const author = $("chatToastAuthor");
+  const text = $("chatToastText");
+
+  if (!toast || !author || !text) return;
+
+  author.textContent = msg.author || "Nuevo mensaje";
+  text.textContent = msg.text || "Tienes novedades en el chat";
+
+  toast.classList.remove("hidden");
+  toast.classList.add("show");
+
+  clearTimeout(chatToastTimer);
+
+  chatToastTimer = setTimeout(() => {
+    toast.classList.remove("show");
+
+    setTimeout(() => {
+      toast.classList.add("hidden");
+    }, 250);
+  }, 4200);
+
+  toast.onclick = () => {
+    setView("chat");
+    toast.classList.remove("show");
+    toast.classList.add("hidden");
+  };
+}
+
+function renderChat() {
   const box = $("chatBox");
+  if (!box) return;
 
-  box.innerHTML = state.chat.map((msg) => `
+  const avatarMap = getChatAvatars();
 
-    <div class="
-      chat-message
-      ${msg.me ? "me" : ""}
-      ${msg.system ? "system" : ""}
-    ">
+  box.innerHTML = state.chat.map((msg) => {
+    const date = msg.createdAt ? new Date(msg.createdAt) : null;
 
-      <strong>
-        ${msg.system ? "📌 " : ""}
-        ${msg.author}
-      </strong>
+    const time = date && !isNaN(date)
+      ? date.toLocaleTimeString("es-ES", {
+          hour: "2-digit",
+          minute: "2-digit"
+        })
+      : "";
 
-      <p>${msg.text}</p>
+    const avatar = avatarMap[msg.author] || "💬";
 
-    </div>
+    return `
+      <div class="chat-row ${msg.me ? "me" : ""} ${msg.system ? "system" : ""}">
+        <div class="chat-avatar">${avatar}</div>
 
-  `).join("");
+        <div class="chat-message" data-chat-id="${msg.id}">
+          ${msg.replyTo ? `
+            <div class="chat-reply-box">
+              <strong>${msg.replyTo.author}</strong>
+              <span>${msg.replyTo.text}</span>
+            </div>
+          ` : ""}
+
+          <div class="chat-author">${msg.author}</div>
+          <p>${msg.text}</p>
+
+          <div class="chat-footer">
+            <span class="chat-time">${time}</span>
+
+            <div class="chat-actions">
+              <button data-chat-reply="${msg.id}">↩️</button>
+              <button data-chat-forward="${msg.id}">📤</button>
+              <button data-chat-delete="${msg.id}">🗑️</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    `;
+  }).join("");
 
   box.scrollTop = box.scrollHeight;
 }
@@ -2026,6 +2136,7 @@ async function addChatMessage(e) {
   if (!text) return;
 
   const author = data.get("author");
+  localStorage.setItem("pv_trip_my_author_v1", author);
 
   const msg = {
     id: crypto.randomUUID
@@ -2035,11 +2146,19 @@ async function addChatMessage(e) {
     author,
     text,
 
-    me: author === "Familia Mesa - Muñoz",
+me: localStorage.getItem("pv_trip_my_author_v1") === author,
 
     system: author === "Mensaje del viaje",
 
-    createdAt: new Date().toISOString()
+    createdAt: new Date().toISOString(),
+
+    replyTo: replyingToMessage
+      ? {
+          id: replyingToMessage.id,
+          author: replyingToMessage.author,
+          text: replyingToMessage.text
+        }
+      : null
   };
 
   state.chat.push(msg);
@@ -2047,6 +2166,9 @@ async function addChatMessage(e) {
   saveChat();
 
   form.reset();
+
+  replyingToMessage = null;
+  renderReplyPreview();
 
   renderChat();
 
@@ -2059,6 +2181,195 @@ async function addChatMessage(e) {
   } catch (err) {
     console.warn("Mensaje guardado solo local:", err.message);
   }
+}
+
+function setupChatAvatarPicker() {
+  const selects = document.querySelectorAll("[data-avatar-person]");
+  if (!selects.length) return;
+
+  const avatars = getChatAvatars();
+
+  selects.forEach((select) => {
+    const person = select.dataset.avatarPerson;
+
+    if (avatars[person]) {
+      select.value = avatars[person];
+    }
+
+    select.addEventListener("change", () => {
+      const next = getChatAvatars();
+      next[person] = select.value;
+
+      saveChatAvatars(next);
+      renderChat();
+    });
+  });
+}
+
+function renderReplyPreview() {
+  const box = $("replyPreview");
+  if (!box) return;
+
+  if (!replyingToMessage) {
+    box.classList.add("hidden");
+    box.innerHTML = "";
+    return;
+  }
+
+  box.classList.remove("hidden");
+
+  box.innerHTML = `
+    <div>
+      <strong>Respondiendo a ${replyingToMessage.author}</strong>
+      <p>${replyingToMessage.text}</p>
+    </div>
+
+    <button type="button" id="cancelReplyBtn">✕</button>
+  `;
+
+  const btn = $("cancelReplyBtn");
+  if (btn) {
+    btn.addEventListener("click", () => {
+      replyingToMessage = null;
+      renderReplyPreview();
+    });
+  }
+}
+
+async function handleChatActions(e) {
+  const replyBtn = e.target.closest("[data-chat-reply]");
+  const deleteBtn = e.target.closest("[data-chat-delete]");
+  const forwardBtn = e.target.closest("[data-chat-forward]");
+
+  if (replyBtn) {
+    const msg = state.chat.find((x) => x.id === replyBtn.dataset.chatReply);
+    if (!msg) return;
+
+    replyingToMessage = msg;
+    renderReplyPreview();
+
+    const input = $("chatMessageInput");
+    if (input) input.focus();
+
+    return;
+  }
+
+  if (deleteBtn) {
+    const id = deleteBtn.dataset.chatDelete;
+
+    const ok = confirm("¿Eliminar este mensaje?");
+    if (!ok) return;
+
+    state.chat = state.chat.filter((x) => x.id !== id);
+
+    saveChat();
+    renderChat();
+
+    try {
+      await apiPutList("chat", state.chat);
+      await liveSyncPull();
+    } catch (err) {
+      console.warn("Mensaje eliminado solo local:", err.message);
+    }
+
+    return;
+  }
+
+  if (forwardBtn) {
+    const msg = state.chat.find((x) => x.id === forwardBtn.dataset.chatForward);
+    if (!msg) return;
+
+    const text = encodeURIComponent(`${msg.author}: ${msg.text}`);
+    window.open(`https://wa.me/?text=${text}`, "_blank");
+  }
+}
+
+async function handleChatPhotoUpload(e) {
+  const input = e.currentTarget;
+  const file = input.files?.[0];
+
+  if (!file) return;
+
+  const authorSelect = document.querySelector(
+    "#chatForm select[name='author']"
+  );
+
+  const author = authorSelect
+    ? authorSelect.value
+    : "Jose Antonio";
+
+  localStorage.setItem(
+    "pv_trip_my_author_v1",
+    author
+  );
+
+  const formData = new FormData();
+
+  formData.append("day", "Chat");
+  formData.append(
+    "caption",
+    `Foto subida desde el chat por ${author}`
+  );
+
+  formData.append("photos", file);
+
+  try {
+    const result = await apiUploadPhotos(formData);
+
+    if (result.ok && result.state) {
+      applyRemoteState(result.state);
+
+      const msg = {
+        id: crypto.randomUUID
+          ? crypto.randomUUID()
+          : String(Date.now()),
+
+        author,
+
+        text:
+          "📸 Ha subido una foto al álbum del viaje",
+
+        me:
+          localStorage.getItem(
+            "pv_trip_my_author_v1"
+          ) === author,
+
+        system: false,
+
+        createdAt: new Date().toISOString()
+      };
+
+      state.chat.push(msg);
+
+      saveChat();
+      renderChat();
+
+      try {
+        const chatResult = await apiPostItem(
+          "chat",
+          msg
+        );
+
+        if (chatResult.ok && chatResult.state) {
+          applyRemoteState(chatResult.state);
+        }
+      } catch (err) {
+        console.warn(
+          "Aviso de foto solo local:",
+          err.message
+        );
+      }
+    }
+  } catch (err) {
+    alert("No se pudo subir la foto ahora.");
+
+    console.warn(
+      "Error subiendo foto desde chat:",
+      err.message
+    );
+  }
+
+  input.value = "";
 }
 
   function bindNavigation() {
@@ -2413,7 +2724,15 @@ async function addPending(e) {
     type: data.get("type"),
     note: data.get("note").trim(),
     done: false,
-    createdAt: new Date().toISOString()
+    createdAt: new Date().toISOString(),
+
+replyTo: replyingToMessage
+  ? {
+      id: replyingToMessage.id,
+      author: replyingToMessage.author,
+      text: replyingToMessage.text
+    }
+  : null
   });
 
   savePending();
@@ -2541,6 +2860,7 @@ async function handlePendingActions(e) {
     renderPhotos();
     renderChecklist();
     renderChat();
+    setupChatAvatarPicker();
     renderSmartWeather();
     renderTopFavorites();
     renderPending();
@@ -2581,6 +2901,11 @@ if (expenseList) {
 }
 
     $("chatForm").addEventListener("submit", addChatMessage);
+    
+    const chatBox = $("chatBox");
+if (chatBox) {
+  chatBox.addEventListener("click", handleChatActions);
+}
     
     const photoForm = $("photoForm");
 
@@ -2653,6 +2978,15 @@ if (pendingForm) {
 const pendingList = $("pendingList");
 if (pendingList) {
   pendingList.addEventListener("click", handlePendingActions);
+}
+
+const chatPhotoInput = $("chatPhotoInput");
+
+if (chatPhotoInput) {
+  chatPhotoInput.addEventListener(
+    "change",
+    handleChatPhotoUpload
+  );
 }
 
 registerServiceWorker();
