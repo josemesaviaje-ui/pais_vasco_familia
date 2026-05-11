@@ -4564,3 +4564,48 @@ select{
     bottom:74px !important;
   }
 }
+/* =====================================================
+   FIX FINAL HERO KPIS MÓVIL · 2 COLUMNAS LIMPIAS
+===================================================== */
+
+@media(max-width:760px){
+
+  .dashboard-grid{
+    grid-template-columns:repeat(2, minmax(0, 1fr)) !important;
+    gap:10px !important;
+    align-items:stretch !important;
+  }
+
+  .dash-card,
+  .dash-card.main,
+  .dash-card.next-stop-card{
+    grid-column:auto !important;
+    min-height:88px !important;
+    padding:12px 11px !important;
+    border-radius:20px !important;
+  }
+
+  .dash-card .sketch-icon,
+  .sketch-icon{
+    font-size:1.05rem !important;
+    margin-bottom:3px !important;
+  }
+
+  .dash-card p{
+    font-size:.68rem !important;
+    line-height:1.05 !important;
+    margin:2px 0 4px !important;
+  }
+
+  .dash-card strong{
+    font-size:.86rem !important;
+    line-height:1.08 !important;
+  }
+
+  .dash-card small{
+    display:block !important;
+    margin-top:3px !important;
+    font-size:.62rem !important;
+    line-height:1.1 !important;
+  }
+}
