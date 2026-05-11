@@ -1,4 +1,4 @@
-const CACHE_NAME = "pais-vasco-pwa-v52";
+const CACHE_NAME = "pais-vasco-pwa-v53";
 
 const APP_SHELL = [
   "/",
