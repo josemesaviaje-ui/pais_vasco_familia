@@ -1,0 +1,3469 @@
+:root{
+  --bg:#efe7dc;
+  --paper:#f8f3ea;
+  --paper-2:#fffdf8;
+
+  --green:#355c4b;
+  --green-2:#4b7462;
+
+  --ink:#2f2a26;
+  --muted:#786f67;
+
+  --line:#d8cec2;
+  --shadow:0 10px 30px rgba(0,0,0,.10);
+
+  --radius:28px;
+}
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+html{
+  scroll-behavior:smooth;
+}
+
+body{
+  background:
+    radial-gradient(circle at top left, rgba(255,255,255,.45), transparent 40%),
+    linear-gradient(to bottom,#efe7dc,#ece3d6);
+
+  color:var(--ink);
+  font-family:'Plus Jakarta Sans',sans-serif;
+  min-height:100vh;
+  overflow-x:hidden;
+}
+
+/* =========================
+   PAPER TEXTURE
+========================= */
+
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  opacity:.06;
+  background-image:
+    repeating-linear-gradient(
+      0deg,
+      rgba(0,0,0,.08) 0px,
+      rgba(0,0,0,.08) 1px,
+      transparent 1px,
+      transparent 6px
+    );
+}
+
+/* =========================
+   APP
+========================= */
+
+.app-shell{
+  width:100%;
+  max-width:760px;
+  margin:auto;
+  padding-bottom:120px;
+}
+
+/* =========================
+   HERO
+========================= */
+
+.hero{
+  position:relative;
+  overflow:hidden;
+  padding:26px 20px 30px;
+  border-radius:0 0 38px 38px;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(53,92,75,.96),
+      rgba(73,116,98,.96)
+    );
+
+  color:#fff;
+
+  box-shadow:
+    0 14px 40px rgba(0,0,0,.18);
+}
+
+.hero::after{
+  content:"";
+  position:absolute;
+  width:240px;
+  height:240px;
+  right:-70px;
+  top:-70px;
+  border-radius:50%;
+  background:rgba(255,255,255,.06);
+}
+
+.hero-bg{
+  position:absolute;
+  inset:0;
+  opacity:.08;
+
+  background-image:
+    radial-gradient(#fff 1px, transparent 1px);
+
+  background-size:22px 22px;
+}
+
+.hero-top{
+  position:relative;
+  z-index:2;
+
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  gap:18px;
+}
+
+.eyebrow{
+  font-size:.78rem;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+  opacity:.8;
+  margin-bottom:10px;
+}
+
+h1{
+  font-family:'Fraunces',serif;
+  font-size:clamp(1.8rem,5vw,3.2rem);
+  line-height:1;
+  margin-bottom:10px;
+}
+
+.subtitle{
+  font-size:1rem;
+  opacity:.92;
+  max-width:420px;
+  line-height:1.5;
+}
+
+.install-btn{
+  border:none;
+  background:#fff;
+  color:var(--green);
+  padding:12px 18px;
+  border-radius:18px;
+  font-weight:800;
+  cursor:pointer;
+  box-shadow:var(--shadow);
+}
+
+/* =========================
+   DASHBOARD
+========================= */
+
+.dashboard-grid{
+  position:relative;
+  z-index:2;
+
+  margin-top:24px;
+
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:14px;
+}
+
+.dash-card{
+  position:relative;
+
+  background:rgba(255,255,255,.14);
+
+  border:1px solid rgba(255,255,255,.12);
+
+  border-radius:24px;
+
+  padding:18px;
+
+  backdrop-filter:blur(10px);
+}
+
+.dash-card.main{
+  grid-column:1/-1;
+}
+
+.sketch-icon{
+  font-size:1.8rem;
+  display:block;
+  margin-bottom:10px;
+}
+
+.dash-card p{
+  font-size:.82rem;
+  opacity:.82;
+  margin-bottom:6px;
+}
+
+.dash-card strong{
+  font-size:1.15rem;
+  font-weight:800;
+}
+
+/* =========================
+   CONTENT
+========================= */
+
+.main-content{
+  padding:20px;
+}
+
+.view{
+  display:none;
+  animation:fade .22s ease;
+}
+
+.view.active{
+  display:block;
+}
+
+@keyframes fade{
+  from{
+    opacity:0;
+    transform:translateY(6px);
+  }
+  to{
+    opacity:1;
+    transform:none;
+  }
+}
+
+/* =========================
+   TITLES
+========================= */
+
+.section-title{
+  display:flex;
+  align-items:flex-start;
+  gap:14px;
+  margin-bottom:22px;
+}
+
+.section-title span{
+  font-size:2rem;
+  transform:rotate(-4deg);
+}
+
+.section-title h2{
+  font-family:'Fraunces',serif;
+  font-size:1.45rem;
+  margin-bottom:4px;
+}
+
+.section-title p{
+  color:var(--muted);
+  font-size:.94rem;
+  line-height:1.5;
+}
+
+/* =========================
+   CARDS
+========================= */
+
+.today-card,
+.note-card,
+.route-card,
+.info-card,
+.upload-box{
+  position:relative;
+
+  background:var(--paper);
+
+  border-radius:28px;
+
+  padding:22px;
+
+  border:2px solid rgba(0,0,0,.04);
+
+  box-shadow:
+    0 10px 24px rgba(0,0,0,.08);
+
+  margin-bottom:18px;
+}
+
+/* paper shadow cut */
+
+,
+.note-card::before,
+.route-card::before,
+.info-card::before{
+  content:"";
+  position:absolute;
+  top:-8px;
+  left:26px;
+
+  width:70px;
+  height:18px;
+
+  background:rgba(255,255,255,.7);
+
+  border-radius:4px;
+
+  transform:rotate(-3deg);
+}
+
+/* pin */
+
+.today-card::after,
+.note-card::after{
+  content:"📌";
+  position:absolute;
+  top:-12px;
+  right:18px;
+  font-size:1.2rem;
+}
+
+.label{
+  font-size:.8rem;
+  text-transform:uppercase;
+  letter-spacing:.12em;
+  color:var(--muted);
+  margin-bottom:10px;
+}
+
+.today-card h3{
+  font-family:'Fraunces',serif;
+  font-size:1.4rem;
+  margin-bottom:8px;
+}
+
+.big-doodle{
+  position:absolute;
+  right:22px;
+  bottom:14px;
+  font-size:4rem;
+  opacity:.14;
+}
+
+.meta-line{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+  margin-top:10px;
+}
+
+.pill{
+  background:#ede4d7;
+  border:1px dashed #ccbba7;
+  padding:8px 12px;
+  border-radius:999px;
+  font-size:.82rem;
+}
+
+/* =========================
+   QUICK ACTIONS
+========================= */
+
+.quick-actions{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:12px;
+}
+
+.quick-actions button,
+.settings-list button{
+  background:var(--paper);
+  border:none;
+  border-radius:22px;
+  padding:18px;
+  font-weight:700;
+  font-size:.95rem;
+  cursor:pointer;
+  box-shadow:var(--shadow);
+}
+
+/* =========================
+   DAYS
+========================= */
+
+.days-tabs{
+  display:flex;
+  gap:10px;
+  overflow:auto;
+  padding-bottom:12px;
+  margin-bottom:16px;
+}
+
+.day-tab{
+  border:none;
+  background:#e6dbcd;
+  color:var(--ink);
+  padding:12px 16px;
+  border-radius:18px;
+  white-space:nowrap;
+  cursor:pointer;
+  font-weight:700;
+}
+
+.day-tab.active{
+  background:var(--green);
+  color:#fff;
+}
+
+.day-grid{
+  display:grid;
+  gap:16px;
+}
+
+.day-date{
+  font-size:.85rem;
+  color:var(--muted);
+  margin-bottom:8px;
+}
+
+/* =========================
+   FOOD FILTER
+========================= */
+
+.budget-filter{
+  display:flex;
+  gap:10px;
+  overflow:auto;
+  margin-bottom:18px;
+}
+
+.budget-filter button{
+  border:none;
+  padding:10px 16px;
+  border-radius:999px;
+  background:#e7dccd;
+  cursor:pointer;
+  font-weight:700;
+}
+
+.budget-filter button.active{
+  background:var(--green);
+  color:#fff;
+}
+
+/* =========================
+   FORMS
+========================= */
+
+.comic-form,
+.chat-form{
+  display:grid;
+  gap:12px;
+  margin-bottom:20px;
+}
+
+input,
+select{
+  width:100%;
+  border:none;
+  border-radius:18px;
+  padding:16px;
+  background:#fff;
+  font-size:.95rem;
+  font-family:inherit;
+  color:var(--ink);
+  box-shadow:0 4px 14px rgba(0,0,0,.06);
+}
+
+.comic-form button,
+.chat-form button{
+  border:none;
+  background:var(--green);
+  color:#fff;
+  border-radius:18px;
+  padding:16px;
+  font-weight:800;
+  cursor:pointer;
+}
+
+/* =========================
+   EXPENSES
+========================= */
+
+.expense-summary{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:14px;
+  margin-bottom:20px;
+}
+
+.expense-summary article{
+  background:var(--paper);
+  border-radius:22px;
+  padding:18px;
+  box-shadow:var(--shadow);
+}
+
+.expense-summary p{
+  font-size:.82rem;
+  color:var(--muted);
+  margin-bottom:8px;
+}
+
+.expense-summary strong{
+  font-size:1.05rem;
+}
+
+/* =========================
+   PHOTOS
+========================= */
+
+.photo-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:14px;
+}
+
+.photo-tile{
+  aspect-ratio:1/1;
+  border-radius:24px;
+  background:var(--paper);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:3rem;
+  box-shadow:var(--shadow);
+  transform:rotate(-1deg);
+}
+
+.photo-tile:nth-child(even){
+  transform:rotate(2deg);
+}
+
+/* =========================
+   CHAT
+========================= */
+
+.chat-box{
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+  margin-bottom:18px;
+}
+
+.chat-message{
+  max-width:82%;
+  background:var(--paper);
+  padding:16px;
+  border-radius:22px;
+  box-shadow:var(--shadow);
+}
+
+.chat-message strong{
+  display:block;
+  margin-bottom:6px;
+}
+
+.chat-message.me{
+  margin-left:auto;
+  background:#dbe8df;
+}
+
+/* =========================
+   LINKS
+========================= */
+
+.map-link{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+
+  margin-top:14px;
+
+  color:var(--green);
+  text-decoration:none;
+  font-weight:700;
+}
+
+/* =========================
+   NAVBAR
+========================= */
+
+.bottom-nav{
+  position:fixed;
+  left:50%;
+  bottom:14px;
+  transform:translateX(-50%);
+
+  width:calc(100% - 24px);
+  max-width:760px;
+
+  background:rgba(255,255,255,.78);
+
+  backdrop-filter:blur(14px);
+
+  border:1px solid rgba(255,255,255,.7);
+
+  border-radius:28px;
+
+  padding:10px;
+
+  display:grid;
+  grid-template-columns:repeat(9,1fr);
+
+  gap:6px;
+
+  box-shadow:
+    0 12px 30px rgba(0,0,0,.14);
+}
+
+.bottom-nav button{
+  border:none;
+  background:transparent;
+  border-radius:18px;
+  padding:10px 4px;
+  cursor:pointer;
+
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:4px;
+
+  color:var(--muted);
+
+  font-size:.72rem;
+  font-weight:700;
+}
+
+.bottom-nav button.active{
+  background:var(--green);
+  color:#fff;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media(max-width:640px){
+
+  .dashboard-grid{
+    grid-template-columns:1fr 1fr;
+  }
+
+  .quick-actions{
+    grid-template-columns:1fr 1fr;
+  }
+
+  .bottom-nav{
+    overflow:auto;
+  }
+}
+/* =========================
+   FIX PRO · DASHBOARD COMPACTO
+========================= */
+
+.hero{
+  padding:22px 24px 96px;
+  border-radius:0 0 34px 34px;
+}
+
+.hero-top{
+  margin-bottom:18px;
+}
+
+.dashboard-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:12px;
+  margin-top:16px;
+}
+
+.dash-card,
+.dash-card.main{
+  grid-column:auto;
+  min-height:auto;
+  padding:14px 16px;
+  border-radius:20px;
+}
+
+.sketch-icon{
+  font-size:1.35rem;
+  margin-bottom:6px;
+}
+
+.dash-card p{
+  font-size:.76rem;
+  margin-bottom:4px;
+}
+
+.dash-card strong{
+  font-size:1rem;
+}
+
+.bottom-nav{
+  bottom:12px;
+}
+
+@media(max-width:760px){
+  .hero{
+    padding:20px 18px 88px;
+  }
+
+  .dashboard-grid{
+    grid-template-columns:repeat(4, minmax(120px,1fr));
+    overflow-x:auto;
+    padding-bottom:4px;
+  }
+
+  .dash-card{
+    min-width:120px;
+  }
+}
+/* =========================
+   FIX PRO · TABLET / PANTALLA GRANDE
+   Aprovechar ancho real y reducir scroll
+========================= */
+
+.app-shell{
+  max-width:1180px;
+  width:100%;
+  padding-bottom:105px;
+}
+
+.hero{
+  margin:0 auto;
+  max-width:1180px;
+  padding:20px 26px 34px;
+  border-radius:0 0 34px 34px;
+}
+
+.hero-top{
+  margin-bottom:14px;
+}
+
+h1{
+  font-size:clamp(2rem,4.2vw,3.8rem);
+  margin-bottom:8px;
+}
+
+.subtitle{
+  font-size:.98rem;
+}
+
+.dashboard-grid{
+  grid-template-columns:repeat(4,1fr);
+  gap:12px;
+  margin-top:14px;
+}
+
+.dash-card,
+.dash-card.main{
+  grid-column:auto !important;
+  padding:13px 16px;
+  min-height:92px;
+  border-radius:20px;
+}
+
+.sketch-icon{
+  font-size:1.28rem;
+  margin-bottom:5px;
+}
+
+.dash-card p{
+  font-size:.74rem;
+}
+
+.dash-card strong{
+  font-size:1rem;
+}
+
+.main-content{
+  max-width:1180px;
+  margin:0 auto;
+  padding:20px 26px 0;
+}
+
+.section-title{
+  margin-bottom:16px;
+}
+
+.section-title h2{
+  font-size:1.35rem;
+}
+
+.section-title p{
+  font-size:.88rem;
+}
+
+.days-tabs{
+  margin-bottom:10px;
+  padding-bottom:8px;
+}
+
+.day-tab{
+  padding:10px 15px;
+}
+
+.day-detail{
+  padding:18px;
+}
+
+.day-grid{
+  grid-template-columns:repeat(2,1fr);
+  gap:14px;
+}
+
+.note-card{
+  margin-bottom:0;
+  padding:17px;
+}
+
+.bottom-nav{
+  max-width:1000px;
+  height:76px;
+  bottom:10px;
+}
+
+/* En tablet horizontal: contenido más compacto */
+@media(min-width:900px){
+  .view{
+    min-height:calc(100vh - 260px);
+  }
+
+  .card-list,
+  .route-list{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  #view-days .day-detail{
+    max-height:none;
+  }
+}
+
+/* En móvil vuelve a una columna */
+@media(max-width:760px){
+  .app-shell{
+    max-width:760px;
+  }
+
+  .hero{
+    padding:20px 18px 88px;
+  }
+
+  .dashboard-grid{
+    grid-template-columns:repeat(4,minmax(120px,1fr));
+    overflow-x:auto;
+  }
+
+  .day-grid{
+    grid-template-columns:1fr;
+  }
+
+  .card-list,
+  .route-list{
+    grid-template-columns:1fr;
+  }
+}
+/* =========================
+   PRO SKETCH · CUADERNO ILUSTRADO
+========================= */
+
+body{
+  background:
+    radial-gradient(circle at 12% 8%, rgba(241,196,107,.28), transparent 22%),
+    radial-gradient(circle at 88% 14%, rgba(63,124,168,.18), transparent 26%),
+    linear-gradient(135deg,#f4eadc,#fffaf2 46%,#eadcc8);
+}
+
+/* textura papel */
+body::after{
+  content:"";
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  z-index:-1;
+  opacity:.18;
+  background-image:
+    linear-gradient(rgba(47,42,38,.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(47,42,38,.06) 1px, transparent 1px);
+  background-size:32px 32px;
+}
+
+/* títulos más manuscritos / editorial */
+.eyebrow{
+  font-family:"Caveat",cursive;
+  font-size:1.05rem;
+  letter-spacing:.08em;
+  text-transform:none;
+}
+
+.subtitle{
+  font-family:"Caveat",cursive;
+  font-size:1.28rem;
+}
+
+.section-title h2,
+.today-card h3,
+.day-head h3,
+.info-card h3,
+.route-card h3,
+.note-card h4{
+  font-family:"Fraunces",serif;
+}
+
+.section-title p,
+.today-card p,
+.note-card li,
+.note-card p,
+.info-card p,
+.route-card p{
+  font-size:.92rem;
+}
+
+/* efecto borde dibujado */
+.today-card,
+.note-card,
+.route-card,
+.info-card,
+.upload-box,
+.expense-summary article,
+.photo-tile,
+.chat-message{
+  border:2px solid rgba(47,42,38,.20);
+  box-shadow:
+    0 10px 26px rgba(47,42,38,.10),
+    4px 5px 0 rgba(47,42,38,.06);
+}
+
+/* cinta adhesiva arriba */
+,
+.note-card::before,
+.route-card::before,
+.info-card::before{
+  content:"";
+  position:absolute;
+  top:-10px;
+  left:28px;
+  width:74px;
+  height:20px;
+  background:rgba(255,255,255,.62);
+  border:1px solid rgba(47,42,38,.08);
+  border-radius:4px;
+  transform:rotate(-3deg);
+}
+
+/* chincheta */
+.today-card::after,
+.note-card::after,
+.info-card::after{
+  content:"📌";
+  position:absolute;
+  top:-16px;
+  right:22px;
+  font-size:1.15rem;
+  transform:rotate(10deg);
+}
+
+/* stickers grandes suaves */
+.hero::before{
+  content:"✏️  🗺️  🚗  🌊";
+  position:absolute;
+  right:28px;
+  bottom:18px;
+  font-size:2.4rem;
+  opacity:.12;
+  transform:rotate(-4deg);
+}
+
+.today-card{
+  overflow:hidden;
+}
+
+.today-card .big-doodle{
+  opacity:.18;
+  filter:grayscale(.15);
+}
+
+/* tarjetas ligeramente tipo postal */
+.info-card:nth-child(odd),
+.route-card:nth-child(odd),
+.note-card:nth-child(odd){
+  transform:rotate(-.35deg);
+}
+
+.info-card:nth-child(even),
+.route-card:nth-child(even),
+.note-card:nth-child(even){
+  transform:rotate(.35deg);
+}
+
+/* botones tipo etiqueta de viaje */
+.quick-actions button,
+.day-tab,
+.budget-filter button,
+.settings-list button,
+.map-link,
+.comic-form button,
+.chat-form button{
+  border:2px solid rgba(47,42,38,.18);
+  box-shadow:3px 4px 0 rgba(47,42,38,.08);
+}
+
+.quick-actions button{
+  font-family:"Caveat",cursive;
+  font-size:1.22rem;
+}
+
+/* etiquetas/pills más dibujo */
+.pill{
+  border:1.5px dashed rgba(47,42,38,.32);
+  background:#f1e5d2;
+  font-family:"Caveat",cursive;
+  font-size:1.02rem;
+  font-weight:700;
+}
+
+/* tabs tipo pegatina */
+.day-tab{
+  font-family:"Caveat",cursive;
+  font-size:1.1rem;
+  border-radius:999px;
+}
+
+/* formulario más cuaderno */
+input,
+select{
+  border:2px solid rgba(47,42,38,.14);
+  background:#fffdf7;
+}
+
+/* nav con iconos tipo pegatina */
+.bottom-nav button{
+  font-family:"Caveat",cursive;
+  font-size:.95rem;
+}
+
+.bottom-nav button span{
+  font-size:.88rem;
+}
+
+/* línea de ruta dibujada en detalle */
+.day-detail{
+  position:relative;
+}
+
+.day-detail::before{
+  content:"";
+  position:absolute;
+  left:22px;
+  top:78px;
+  bottom:24px;
+  width:2px;
+  border-left:2px dashed rgba(53,92,75,.25);
+  pointer-events:none;
+}
+
+/* ajuste para que no moleste en móvil */
+@media(max-width:760px){
+  .day-detail::before{
+    display:none;
+  }
+
+  .hero::before{
+    font-size:1.7rem;
+    right:16px;
+    bottom:16px;
+  }
+
+  .quick-actions button{
+    font-size:1.1rem;
+  }
+}
+/* =========================
+   FIX DÍAS · GUÍA LIMPIA PRO
+========================= */
+
+.day-detail::before{
+  display:none !important;
+}
+
+.day-head{
+  margin-bottom:18px;
+  padding-bottom:14px;
+  border-bottom:1px dashed rgba(47,42,38,.18);
+}
+
+.day-head p{
+  margin:0 0 6px;
+}
+
+.day-grid{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:18px;
+}
+
+.note-card{
+  min-height:170px;
+  padding:22px 22px 20px;
+  overflow:visible;
+}
+
+.note-card::before{
+  content:attr(data-label) !important;
+  top:-14px;
+  left:26px;
+  width:auto;
+  min-width:92px;
+  height:auto;
+  padding:5px 14px;
+  font-family:"Caveat",cursive;
+  font-size:1rem;
+  font-weight:800;
+  color:#355c4b;
+  background:rgba(255,255,255,.82);
+  border:1px solid rgba(47,42,38,.12);
+  box-shadow:2px 3px 0 rgba(47,42,38,.06);
+}
+
+.note-card::after{
+  top:-15px;
+  right:24px;
+}
+
+.note-card h4{
+  margin:4px 0 10px;
+  font-size:1.18rem;
+}
+
+.note-card ul{
+  padding-left:18px;
+  margin:0;
+}
+
+.note-card li{
+  margin:5px 0;
+  line-height:1.32;
+}
+
+.note-card p{
+  line-height:1.42;
+}
+
+.map-link{
+  background:#f4eadc;
+  padding:8px 12px;
+  border-radius:12px;
+  margin-top:12px;
+}
+
+.guide-highlight{
+  display:grid;
+  gap:8px;
+}
+
+.guide-highlight div{
+  background:#fffaf2;
+  border:1px dashed rgba(47,42,38,.18);
+  border-radius:16px;
+  padding:10px 12px;
+}
+
+.guide-highlight strong{
+  display:block;
+  font-family:"Caveat",cursive;
+  font-size:1.1rem;
+  color:#355c4b;
+  margin-bottom:3px;
+}
+
+@media(max-width:760px){
+  .day-grid{
+    grid-template-columns:1fr;
+  }
+
+  .note-card{
+    min-height:auto;
+  }
+}
+/* =========================
+   GUÍA DIARIA · VISUAL PREMIUM
+========================= */
+
+.guide-highlight{
+  display:grid;
+  grid-template-columns:1fr;
+  gap:10px;
+}
+
+.guide-highlight div{
+  position:relative;
+  padding:13px 14px 13px 42px;
+  border-radius:18px;
+  background:
+    linear-gradient(135deg,#fffdf8,#f3eadc);
+  border:1.5px dashed rgba(47,42,38,.22);
+  box-shadow:2px 3px 0 rgba(47,42,38,.05);
+}
+
+.guide-highlight div::before{
+  content:"⭐";
+  position:absolute;
+  left:13px;
+  top:13px;
+  font-size:1rem;
+}
+
+.guide-highlight strong{
+  display:block;
+  font-family:"Fraunces",serif;
+  font-size:1rem;
+  color:#355c4b;
+  margin-bottom:3px;
+}
+
+.guide-highlight p{
+  margin:0;
+  font-size:.88rem;
+  line-height:1.35;
+  color:#514943;
+}
+
+.note-card h4{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  margin-bottom:12px;
+}
+
+.note-card ul{
+  list-style:none;
+  padding-left:0;
+}
+
+.note-card li{
+  position:relative;
+  padding-left:22px;
+}
+
+.note-card li::before{
+  content:"✦";
+  position:absolute;
+  left:0;
+  top:0;
+  color:#355c4b;
+  font-size:.85rem;
+}
+
+.note-card[data-label="Avisos útiles"] li::before{
+  content:"⚠️";
+  font-size:.75rem;
+}
+
+.note-card[data-label="Curiosidades"] li::before{
+  content:"✏️";
+  font-size:.78rem;
+}
+
+.note-card[data-label="Ruta"] li::before{
+  content:"📍";
+  font-size:.78rem;
+}
+
+.note-card[data-label="Plan B"]{
+  background:linear-gradient(135deg,#eef5f6,#fffaf2);
+}
+
+.note-card[data-label="Plan B"]::after{
+  content:"☔";
+}
+
+.note-card[data-label="No perderse"]{
+  background:linear-gradient(135deg,#fff8e4,#fffdf8);
+}
+
+.note-card[data-label="No perderse"]::after{
+  content:"⭐";
+}
+
+.note-card[data-label="Curiosidades"]{
+  background:linear-gradient(135deg,#fffdf8,#f2eadf);
+}
+
+.note-card[data-label="Avisos útiles"]{
+  background:linear-gradient(135deg,#fff4ee,#fffdf8);
+}
+
+.note-card[data-label="Ruta"]{
+  background:linear-gradient(135deg,#eef3ed,#fffdf8);
+}
+
+.note-card[data-label="Plan del día"]{
+  background:linear-gradient(135deg,#fffdf8,#f4eadc);
+}
+
+.note-card[data-label="Plan del día"]::after{
+  content:"📌";
+}
+
+.day-head{
+  background:rgba(255,253,248,.62);
+  border:1px solid rgba(47,42,38,.08);
+  border-radius:24px;
+  padding:16px 18px;
+  box-shadow:3px 4px 0 rgba(47,42,38,.04);
+}
+
+.day-head h3{
+  font-size:1.42rem;
+}
+
+.day-head > div:first-child p:last-child{
+  font-family:"Caveat",cursive;
+  font-size:1.16rem;
+  color:#5f564f;
+}
+
+.day-grid{
+  align-items:stretch;
+}
+
+.note-card{
+  transition:transform .18s ease, box-shadow .18s ease;
+}
+
+.note-card:active{
+  transform:scale(.99);
+}
+
+/* modo tablet: tarjetas más compactas */
+@media(min-width:900px){
+  .note-card{
+    min-height:150px;
+  }
+
+  .note-card h4{
+    font-size:1.05rem;
+  }
+
+  .note-card li,
+  .note-card p,
+  .guide-highlight p{
+    font-size:.86rem;
+  }
+}
+/* =========================
+   POST-ITS CON TEXTO · TODAS LAS SECCIONES
+========================= */
+
+.route-card::before,
+.info-card::before,
+{
+  content:attr(data-label) !important;
+  top:-14px;
+  left:28px;
+  width:auto;
+  min-width:86px;
+  height:auto;
+  padding:5px 14px;
+  font-family:"Caveat",cursive;
+  font-size:1rem;
+  font-weight:800;
+  color:#355c4b;
+  background:rgba(255,255,255,.84);
+  border:1px solid rgba(47,42,38,.12);
+  border-radius:5px;
+  box-shadow:2px 3px 0 rgba(47,42,38,.06);
+  transform:rotate(-3deg);
+}
+
+.route-card:nth-child(even)::before,
+.info-card:nth-child(even)::before{
+  transform:rotate(2deg);
+}
+
+.route-card::after,
+.info-card::after{
+  content:"📌";
+  position:absolute;
+  top:-16px;
+  right:24px;
+  font-size:1.15rem;
+  transform:rotate(10deg);
+}
+/* =========================
+   BOTÓN VOLVER · SECCIONES EXTRA
+========================= */
+
+.back-more-btn{
+  margin-top:18px;
+  width:100%;
+  border:2px solid rgba(47,42,38,.18);
+  border-radius:22px;
+  background:#fffaf2;
+  padding:15px 18px;
+  font-family:"Caveat",cursive;
+  font-size:1.2rem;
+  font-weight:800;
+  color:#355c4b;
+  box-shadow:3px 4px 0 rgba(47,42,38,.08);
+}
+/* =========================
+   RESERVAS PRO · ACCIONES
+========================= */
+
+.booking-actions{
+  display:flex;
+  flex-wrap:wrap;
+  gap:9px;
+  margin:14px 0 4px;
+}
+
+.booking-actions button{
+  border:2px solid rgba(47,42,38,.16);
+  border-radius:16px;
+  background:#fffaf2;
+  padding:9px 12px;
+  font-family:"Caveat",cursive;
+  font-size:1.05rem;
+  font-weight:800;
+  color:#355c4b;
+  box-shadow:2px 3px 0 rgba(47,42,38,.07);
+}
+
+.booking-actions button:nth-child(1){
+  background:#e7f2e8;
+}
+
+.booking-actions button:nth-child(2){
+  background:#eef1fb;
+}
+
+.booking-actions button:nth-child(3){
+  background:#fff0e8;
+}
+
+.booking-actions button:nth-child(4){
+  background:#f8e3df;
+}
+
+.booking-status.confirmado{
+  background:#dcefdc;
+  color:#2f6b3e;
+}
+
+.booking-status.cancelado{
+  background:#f3d8d3;
+  color:#9d3b3b;
+}
+
+.booking-status.pendiente{
+  background:#f3ead6;
+  color:#7a5b20;
+}
+
+.booking-status.reservado{
+  background:#dde9f5;
+  color:#315e82;
+}
+
+/* =========================
+   FORMULARIO NUEVA RESERVA
+========================= */
+
+.booking-form{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:10px;
+  margin-bottom:22px;
+  background:rgba(255,253,248,.72);
+  border:2px solid rgba(47,42,38,.12);
+  border-radius:26px;
+  padding:16px;
+  box-shadow:3px 4px 0 rgba(47,42,38,.05);
+}
+
+.booking-form input,
+.booking-form select{
+  min-width:0;
+}
+
+.booking-form button{
+  grid-column:1/-1;
+  border:2px solid rgba(47,42,38,.18);
+  border-radius:18px;
+  background:#355c4b;
+  color:white;
+  padding:14px 16px;
+  font-family:"Caveat",cursive;
+  font-size:1.25rem;
+  font-weight:800;
+  box-shadow:3px 4px 0 rgba(47,42,38,.10);
+}
+
+@media(max-width:760px){
+  .booking-form{
+    grid-template-columns:1fr;
+  }
+}
+/* =========================
+   FOTOS · POLAROID
+========================= */
+
+.photo-upload-form{
+  margin-bottom:18px;
+}
+
+.photo-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(180px,1fr));
+  gap:18px;
+}
+
+.photo-card{
+  position:relative;
+  background:#fffefb;
+  border-radius:18px;
+  padding:10px 10px 16px;
+  border:2px solid rgba(47,42,38,.10);
+  box-shadow:
+    0 10px 25px rgba(0,0,0,.08),
+    3px 4px 0 rgba(47,42,38,.05);
+  transform:rotate(-1.2deg);
+}
+
+.photo-card:nth-child(even){
+  transform:rotate(1.3deg);
+}
+
+.photo-card img{
+  width:100%;
+  aspect-ratio:1/1;
+  object-fit:cover;
+  border-radius:12px;
+  display:block;
+}
+
+.photo-day{
+  margin-top:10px;
+  font-size:.8rem;
+  font-weight:700;
+  color:#7d746a;
+  letter-spacing:.04em;
+  text-transform:uppercase;
+}
+
+.photo-caption{
+  margin-top:6px;
+  font-family:"Caveat",cursive;
+  font-size:1.35rem;
+  line-height:1.15;
+  color:#2f2a26;
+}
+
+.photo-delete{
+  position:absolute;
+  top:12px;
+  right:12px;
+  border:none;
+  width:36px;
+  height:36px;
+  border-radius:50%;
+  background:rgba(0,0,0,.65);
+  color:#fff;
+  font-size:1rem;
+}
+
+.empty-photos{
+  padding:26px;
+  text-align:center;
+  font-family:"Caveat",cursive;
+  font-size:1.4rem;
+  color:#5e574f;
+}
+/* =========================
+   CHAT COMIC PRO
+========================= */
+
+.chat-form{
+  display:grid;
+  grid-template-columns:180px 1fr auto;
+  gap:10px;
+  margin-top:18px;
+}
+
+.chat-form select{
+  min-width:0;
+}
+
+.chat-message{
+  position:relative;
+  max-width:82%;
+  margin-bottom:14px;
+  padding:14px 16px;
+  border-radius:22px;
+  background:#fffdf8;
+  border:2px solid rgba(47,42,38,.10);
+  box-shadow:3px 4px 0 rgba(47,42,38,.05);
+}
+
+.chat-message strong{
+  display:block;
+  margin-bottom:6px;
+  font-size:.85rem;
+  color:#355c4b;
+}
+
+.chat-message p{
+  margin:0;
+  font-family:"Caveat",cursive;
+  font-size:1.45rem;
+  line-height:1.15;
+}
+
+.chat-message.me{
+  margin-left:auto;
+  background:#edf5ef;
+}
+
+.chat-message.system{
+  margin-left:auto;
+  margin-right:auto;
+  background:#fff1c8;
+  text-align:center;
+}
+
+@media(max-width:760px){
+
+  .chat-form{
+    grid-template-columns:1fr;
+  }
+
+  .chat-message{
+    max-width:100%;
+  }
+
+}
+/* =========================
+   ESTADO DEL DÍA · PLAN INTELIGENTE
+========================= */
+
+.weather-panel{
+  margin-top:18px;
+  position:relative;
+  background:linear-gradient(135deg,#fffdf8,#eef5f6);
+  border:2px solid rgba(47,42,38,.12);
+  border-radius:28px;
+  padding:20px;
+  box-shadow:
+    0 10px 24px rgba(0,0,0,.08),
+    4px 5px 0 rgba(47,42,38,.05);
+}
+
+.weather-panel::before{
+  content:"Plan vivo";
+  position:absolute;
+  top:-14px;
+  left:28px;
+  padding:5px 14px;
+  font-family:"Caveat",cursive;
+  font-size:1rem;
+  font-weight:800;
+  color:#355c4b;
+  background:rgba(255,255,255,.86);
+  border:1px solid rgba(47,42,38,.12);
+  border-radius:5px;
+  transform:rotate(-3deg);
+}
+
+.weather-panel h3{
+  font-family:"Fraunces",serif;
+  font-size:1.25rem;
+  margin-bottom:6px;
+  color:#355c4b;
+}
+
+.weather-panel p{
+  color:#5f564f;
+}
+
+.weather-actions{
+  display:flex;
+  flex-wrap:wrap;
+  gap:9px;
+  margin-top:14px;
+}
+
+.weather-actions button{
+  border:2px solid rgba(47,42,38,.14);
+  border-radius:999px;
+  background:#fffaf2;
+  padding:9px 13px;
+  font-family:"Caveat",cursive;
+  font-size:1.05rem;
+  font-weight:800;
+  color:#355c4b;
+  box-shadow:2px 3px 0 rgba(47,42,38,.06);
+}
+
+.weather-actions button.active{
+  background:#355c4b;
+  color:white;
+}
+/* =========================
+   FIX HOME · TARJETAS MÁS CÁLIDAS
+========================= */
+
+.today-card{
+  overflow:visible !important;
+  background:
+    linear-gradient(135deg,#fff8e8,#f4eadc) !important;
+}
+
+.weather-panel{
+  background:
+    linear-gradient(135deg,#eef6f2,#fff8e8) !important;
+  overflow:visible !important;
+}
+
+.quick-actions button{
+  background:
+    linear-gradient(135deg,#fff8e8,#efe4d4) !important;
+}
+
+.today-card::after{
+  top:-16px !important;
+  right:24px !important;
+}
+
+.today-card .big-doodle{
+  right:28px;
+  bottom:18px;
+  opacity:.22;
+}
+
+.weather-panel::after{
+  content:"🌦️";
+  position:absolute;
+  right:24px;
+  top:22px;
+  font-size:2.2rem;
+  opacity:.18;
+  transform:rotate(8deg);
+}
+
+/* mejora separación bajo hero */
+.main-content{
+  padding-top:28px;
+}
+
+/* en tablet, que no se corte nada cerca del borde superior */
+.view-home,
+#view-home{
+  overflow:visible;
+}
+/* =========================
+   SOLO PEGATINA HOME
+========================= */
+
+.view-home .today-card::after{
+  content:"Ruta destacada";
+
+  position:absolute;
+  top:-12px;
+  left:38px;
+
+  padding:5px 15px;
+
+  background:
+    rgba(255,255,255,.82);
+
+  border:1px solid rgba(47,42,38,.12);
+
+  border-radius:6px;
+
+  font-family:"Caveat",cursive;
+
+  font-size:1rem;
+  font-weight:800;
+
+  color:#6e5d37;
+
+  transform:rotate(-3deg);
+
+  box-shadow:
+    0 3px 8px rgba(0,0,0,.05);
+
+  z-index:6;
+}
+/* =========================
+   FIX POST-ITS · VOLVER ARRIBA BONITO
+========================= */
+
+.note-card,
+.info-card,
+.route-card,
+.today-card{
+  overflow:visible !important;
+  margin-top:18px !important;
+}
+
+.note-card::before,
+.info-card::before,
+.route-card::before{
+  top:-20px !important;
+  left:28px !important;
+
+  padding:6px 18px !important;
+  min-width:auto !important;
+
+  background:rgba(255,255,255,.90) !important;
+  border:1px solid rgba(47,42,38,.14) !important;
+  border-radius:6px !important;
+
+  font-family:"Caveat",cursive !important;
+  font-size:1.05rem !important;
+  font-weight:800 !important;
+  color:#355c4b !important;
+
+  box-shadow:
+    0 4px 8px rgba(0,0,0,.06),
+    2px 2px 0 rgba(47,42,38,.05) !important;
+
+  transform:rotate(-2deg) !important;
+  z-index:20 !important;
+}
+
+.note-card:nth-child(even)::before,
+.info-card:nth-child(even)::before,
+.route-card:nth-child(even)::before{
+  transform:rotate(2deg) !important;
+}
+
+.note-card h4,
+.info-card h3,
+.route-card h3{
+  margin-top:10px !important;
+}
+
+/* pegatina del próximo plan solo en home */
+#view-home .today-card::after{
+  content:"Ruta destacada" !important;
+  top:-20px !important;
+  left:28px !important;
+  right:auto !important;
+
+  padding:6px 18px !important;
+  background:rgba(255,255,255,.90) !important;
+  border:1px solid rgba(47,42,38,.14) !important;
+  border-radius:6px !important;
+
+  font-family:"Caveat",cursive !important;
+  font-size:1.05rem !important;
+  font-weight:800 !important;
+  color:#355c4b !important;
+
+  transform:rotate(-2deg) !important;
+  z-index:20 !important;
+}
+/* =========================
+   RESET FINAL POST-ITS · ESTABLE
+========================= */
+
+/* Base para que ningún post-it se corte */
+.today-card,
+.note-card,
+.info-card,
+.route-card{
+  position:relative !important;
+  overflow:visible !important;
+  margin-top:22px !important;
+}
+
+/* Quitamos chinchetas/textos heredados rotos */
+.today-card::before,
+.today-card::after,
+.note-card::before,
+.note-card::after,
+.info-card::before,
+.info-card::after,
+.route-card::before,
+.route-card::after{
+  box-sizing:border-box !important;
+}
+
+/* POST-IT PRINCIPAL: tarjetas con data-label */
+.note-card::before,
+.info-card::before,
+.route-card::before{
+  content:attr(data-label) !important;
+  position:absolute !important;
+  top:-18px !important;
+  left:30px !important;
+  right:auto !important;
+
+  width:auto !important;
+  min-width:90px !important;
+  max-width:240px !important;
+  height:auto !important;
+
+  padding:5px 15px !important;
+  display:inline-flex !important;
+  align-items:center !important;
+  justify-content:center !important;
+
+  background:rgba(255,255,255,.92) !important;
+  border:1px solid rgba(47,42,38,.14) !important;
+  border-radius:6px !important;
+
+  font-family:"Caveat",cursive !important;
+  font-size:1.02rem !important;
+  line-height:1 !important;
+  font-weight:800 !important;
+  color:#355c4b !important;
+
+  transform:rotate(-3deg) !important;
+  box-shadow:0 4px 8px rgba(0,0,0,.06), 2px 2px 0 rgba(47,42,38,.05) !important;
+  z-index:30 !important;
+  opacity:1 !important;
+}
+
+/* Alternancia sutil */
+.info-card:nth-child(even)::before,
+.route-card:nth-child(even)::before,
+.note-card:nth-child(even)::before{
+  transform:rotate(2deg) !important;
+}
+
+/* CHINCHETA */
+.note-card::after,
+.info-card::after,
+.route-card::after{
+  content:"📌" !important;
+  position:absolute !important;
+  top:-18px !important;
+  right:26px !important;
+  left:auto !important;
+
+  font-size:1.2rem !important;
+  width:auto !important;
+  height:auto !important;
+  padding:0 !important;
+
+  background:transparent !important;
+  border:0 !important;
+  box-shadow:none !important;
+  transform:rotate(12deg) !important;
+  z-index:31 !important;
+  opacity:1 !important;
+}
+
+/* HOME: tarjeta próximo plan */
+#view-home .today-card::before{
+  content:"Ruta destacada" !important;
+  position:absolute !important;
+  top:-18px !important;
+  left:30px !important;
+
+  width:auto !important;
+  min-width:120px !important;
+  height:auto !important;
+
+  padding:5px 15px !important;
+  display:inline-flex !important;
+  align-items:center !important;
+  justify-content:center !important;
+
+  background:rgba(255,255,255,.92) !important;
+  border:1px solid rgba(47,42,38,.14) !important;
+  border-radius:6px !important;
+
+  font-family:"Caveat",cursive !important;
+  font-size:1.02rem !important;
+  line-height:1 !important;
+  font-weight:800 !important;
+  color:#355c4b !important;
+
+  transform:rotate(-3deg) !important;
+  box-shadow:0 4px 8px rgba(0,0,0,.06), 2px 2px 0 rgba(47,42,38,.05) !important;
+  z-index:30 !important;
+}
+
+#view-home .today-card::after{
+  content:"📌" !important;
+  position:absolute !important;
+  top:-18px !important;
+  right:26px !important;
+
+  font-size:1.2rem !important;
+  background:transparent !important;
+  border:0 !important;
+  box-shadow:none !important;
+  transform:rotate(12deg) !important;
+  z-index:31 !important;
+}
+
+/* Espacio interno para que el título no choque con la pegatina */
+.note-card h4,
+.info-card h3,
+.route-card h3,
+.today-card h3{
+  margin-top:10px !important;
+}
+
+/* Si una tarjeta no tiene data-label, no mostramos etiqueta vacía */
+.note-card:not([data-label])::before,
+.info-card:not([data-label])::before,
+.route-card:not([data-label])::before{
+  display:none !important;
+}
+/* =========================
+   CHECKLIST PRO
+========================= */
+
+.checklist-card{
+  margin-bottom:22px;
+}
+
+.checklist-items{
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+  margin-top:14px;
+}
+
+.checklist-item{
+  display:flex;
+  align-items:center;
+  gap:14px;
+  padding:12px 14px;
+  border-radius:14px;
+  background:rgba(255,255,255,.55);
+  border:1px dashed rgba(47,42,38,.14);
+}
+
+.checklist-item input{
+  width:20px;
+  height:20px;
+  box-shadow:none;
+}
+
+.checklist-item span{
+  flex:1;
+  font-family:"Caveat",cursive;
+  font-size:1.35rem;
+}
+
+.checklist-item.done span{
+  text-decoration:line-through;
+  opacity:.5;
+}
+
+.check-delete{
+  border:none;
+  background:transparent;
+  font-size:1rem;
+  color:#b04b4b;
+}
+
+.empty-checklist{
+  font-family:"Caveat",cursive;
+  font-size:1.3rem;
+  opacity:.6;
+}
+/* =========================
+   MORE OPTIONS PRO
+========================= */
+
+.more-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:18px;
+  margin-top:24px;
+}
+
+.more-card{
+  position:relative;
+  display:flex;
+  align-items:flex-start;
+  gap:16px;
+
+  padding:22px;
+  border-radius:28px;
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(255,255,255,.62),
+      rgba(255,248,238,.86)
+    );
+
+  border:2px solid rgba(90,70,50,.12);
+
+  box-shadow:
+    0 8px 24px rgba(0,0,0,.08),
+    0 3px 0 rgba(0,0,0,.06);
+
+  cursor:pointer;
+  transition:.2s ease;
+}
+
+.more-card:hover{
+  transform:translateY(-3px) rotate(-0.4deg);
+}
+
+.more-card::before{
+  content:"Más";
+
+  position:absolute;
+
+  top:-10px;
+  left:34px;
+
+  padding:4px 14px;
+
+  background:rgba(255,255,255,.82);
+
+  border-radius:4px;
+
+  transform:rotate(-3deg);
+
+  box-shadow:0 2px 6px rgba(0,0,0,.08);
+
+  font-family:"Caveat",cursive;
+  font-size:1.15rem;
+  color:#4b6559;
+
+  letter-spacing:.3px;
+}
+
+.more-icon{
+  font-size:2rem;
+  line-height:1;
+}
+
+.more-card h3{
+  margin:0;
+
+  font-family:"Caveat",cursive;
+  font-size:2rem;
+  color:#26473a;
+}
+
+.more-card p{
+  margin:4px 0 0;
+
+  font-size:.96rem;
+  line-height:1.45;
+
+  color:#5f5a52;
+}
+/* =========================
+   FIX CHINCHETA HOME
+========================= */
+
+#view-home .today-card::after{
+  top:-12px !important;
+  right:24px !important;
+  left:auto !important;
+}
+/* =====================================================
+   ROADBOOK / TIMELINE RUTA
+===================================================== */
+
+.route-list{
+  display:flex;
+  flex-direction:column;
+  gap:26px;
+}
+
+.route-timeline-card{
+  position:relative;
+  display:flex;
+  gap:22px;
+  padding:30px;
+  border-radius:34px;
+  background:rgba(255,248,240,.82);
+  border:2px solid rgba(80,60,40,.12);
+  box-shadow:
+    0 10px 30px rgba(0,0,0,.05),
+    inset 0 1px 0 rgba(255,255,255,.7);
+}
+
+.route-timeline-card::before{
+  content:attr(data-label);
+  position:absolute;
+  top:-12px;
+  left:28px;
+
+  background:#f4f1eb;
+  padding:8px 16px;
+  border-radius:10px;
+
+  font-family:'Caveat',cursive;
+  font-size:1.2rem;
+  color:#355c4b;
+
+  box-shadow:0 4px 12px rgba(0,0,0,.08);
+}
+
+.timeline-left{
+  width:72px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  flex-shrink:0;
+}
+
+.timeline-dot{
+  width:64px;
+  height:64px;
+  border-radius:50%;
+
+  background:linear-gradient(
+    145deg,
+    #4f7a67,
+    #355c4b
+  );
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  font-size:1.8rem;
+
+  color:#fff;
+
+  box-shadow:
+    0 10px 20px rgba(53,92,75,.25),
+    inset 0 1px 0 rgba(255,255,255,.2);
+}
+
+.timeline-line{
+  flex:1;
+  width:4px;
+  margin-top:10px;
+  border-radius:999px;
+
+  background:
+    repeating-linear-gradient(
+      to bottom,
+      rgba(53,92,75,.35),
+      rgba(53,92,75,.35) 10px,
+      transparent 10px,
+      transparent 18px
+    );
+}
+
+.timeline-content{
+  flex:1;
+}
+
+.timeline-top{
+  display:flex;
+  justify-content:space-between;
+  gap:20px;
+  align-items:flex-start;
+}
+
+.timeline-day{
+  margin:0 0 4px;
+  text-transform:uppercase;
+  letter-spacing:.12em;
+  font-size:.8rem;
+  color:#7a746d;
+}
+
+.timeline-top h3{
+  margin:0;
+  font-size:2rem;
+}
+
+.timeline-km{
+  padding:12px 16px;
+  border-radius:16px;
+
+  background:#edf3ef;
+
+  font-weight:700;
+  color:#355c4b;
+
+  white-space:nowrap;
+}
+
+.route-steps{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+  margin-top:20px;
+}
+
+.route-steps span{
+  display:flex;
+  align-items:center;
+  gap:10px;
+
+  padding:10px 14px;
+  border-radius:999px;
+
+  background:#f5efe6;
+
+  font-weight:600;
+  color:#4b433b;
+}
+
+.route-steps b{
+  color:#355c4b;
+}
+
+.timeline-mood{
+  margin-top:18px;
+  font-size:1.02rem;
+  color:#6c645b;
+}
+
+.timeline-actions{
+  display:flex;
+  flex-wrap:wrap;
+  gap:14px;
+  margin-top:22px;
+}
+
+.timeline-open{
+  border:none;
+  cursor:pointer;
+
+  padding:14px 18px;
+  border-radius:18px;
+
+  background:#355c4b;
+  color:#fff;
+
+  font-weight:700;
+  font-family:inherit;
+
+  box-shadow:0 8px 20px rgba(53,92,75,.22);
+}
+
+.timeline-open:hover{
+  transform:translateY(-2px);
+}
+
+@media (max-width:900px){
+
+  .route-timeline-card{
+    flex-direction:column;
+    padding:26px;
+  }
+
+  .timeline-left{
+    width:100%;
+    flex-direction:row;
+    align-items:center;
+  }
+
+  .timeline-line{
+    height:4px;
+    width:100%;
+    margin-top:0;
+    margin-left:10px;
+
+    background:
+      repeating-linear-gradient(
+        to right,
+        rgba(53,92,75,.35),
+        rgba(53,92,75,.35) 10px,
+        transparent 10px,
+        transparent 18px
+      );
+  }
+
+  .timeline-top{
+    flex-direction:column;
+  }
+
+  .timeline-top h3{
+    font-size:1.7rem;
+  }
+
+  .timeline-km{
+    align-self:flex-start;
+  }
+}
+/* =========================
+   SERVICIOS ÚTILES CLICABLES
+========================= */
+
+.service-list{
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+}
+
+.service-chip{
+  display:block;
+  padding:12px 14px;
+  border-radius:16px;
+  background:rgba(255,255,255,.62);
+  border:1px dashed rgba(47,42,38,.18);
+  color:#355c4b;
+  text-decoration:none;
+  font-family:"Caveat",cursive;
+  font-size:1.18rem;
+  font-weight:800;
+  line-height:1.15;
+  box-shadow:2px 3px 0 rgba(47,42,38,.05);
+}
+
+.service-chip::after{
+  content:"  ↗";
+  opacity:.65;
+}
+
+.service-chip:active{
+  transform:scale(.98);
+}
+/* =========================
+   PLAN FLEXIBLE
+========================= */
+
+.flexible-plan-card{
+  background:
+    linear-gradient(
+      180deg,
+      rgba(255,252,245,.98),
+      rgba(255,248,235,.95)
+    );
+}
+
+.flex-plan-list{
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+  margin-top:14px;
+}
+
+.flex-plan-item{
+  display:flex;
+  align-items:flex-start;
+  gap:12px;
+
+  padding:14px;
+  border-radius:18px;
+
+  background:
+    rgba(255,255,255,.72);
+
+  border:1px dashed rgba(47,42,38,.12);
+}
+
+.flex-plan-item.done{
+  opacity:.65;
+}
+
+.flex-plan-item.done p{
+  text-decoration:line-through;
+}
+
+.flex-check,
+.flex-delete{
+  border:none;
+  background:none;
+  font-size:1.2rem;
+  cursor:pointer;
+}
+
+.flex-plan-content{
+  flex:1;
+}
+
+.flex-moment{
+  display:block;
+  margin-bottom:4px;
+
+  font-family:"Caveat",cursive;
+  font-size:1.2rem;
+  font-weight:800;
+  color:#355c4b;
+}
+
+.flex-plan-content p{
+  margin:0;
+  line-height:1.45;
+}
+
+.add-flex-btn{
+  width:100%;
+  margin-top:16px;
+}
+/* =========================
+   CONSEJOS PRO
+========================= */
+
+.note-card[data-label="Consejos PRO"]{
+  background:linear-gradient(135deg,#eef6f2,#fffaf2);
+}
+
+.note-card[data-label="Consejos PRO"]::after{
+  content:"🧠" !important;
+}
+
+.note-card[data-label="Consejos PRO"] li::before{
+  content:"✨";
+  font-size:.78rem;
+}
+/* =========================
+   FAVORITOS
+========================= */
+
+.mustsee-item{
+  display:flex;
+  gap:12px;
+  justify-content:space-between;
+  align-items:flex-start;
+}
+
+.fav-btn{
+  border:none;
+  background:#fff7d6;
+  width:42px;
+  height:42px;
+  border-radius:14px;
+  cursor:pointer;
+  font-size:1.1rem;
+  flex-shrink:0;
+  box-shadow:0 8px 18px rgba(0,0,0,.08);
+  transition:.2s;
+}
+
+.fav-btn:active{
+  transform:scale(.92);
+}
+
+.fav-btn.saved{
+  background:#ffe082;
+  transform:scale(1.12);
+}
+/* =========================
+   TOP DEL VIAJE
+========================= */
+
+.top-card{
+  background:linear-gradient(135deg,#fff8df,#fffdf8);
+}
+
+.top-card::after{
+  content:"🏆" !important;
+}
+/* =========================
+   PENDIENTES DEL VIAJE
+========================= */
+
+.pending-card{
+  background:linear-gradient(135deg,#fffaf2,#eef6f2);
+}
+
+.pending-card.done{
+  opacity:.68;
+}
+
+.pending-card.done h3{
+  text-decoration:line-through;
+}
+
+.pending-card::after{
+  content:"📌" !important;
+}
+
+.pending-card.done::after{
+  content:"✅" !important;
+}
+/* =========================
+   MINI GUÍA REAL POR DÍA
+========================= */
+
+.mini-guide-card{
+  background:linear-gradient(135deg,#fffdf8,#f4efe5);
+}
+
+.mini-guide-list{
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+}
+
+.mini-guide-item{
+  display:flex;
+  justify-content:space-between;
+  gap:14px;
+  text-decoration:none;
+  color:inherit;
+  padding:14px;
+  border-radius:18px;
+  background:rgba(255,255,255,.62);
+  border:1px dashed rgba(47,42,38,.16);
+  box-shadow:2px 3px 0 rgba(47,42,38,.04);
+}
+
+.mini-guide-item strong{
+  display:block;
+  font-family:"Caveat",cursive;
+  font-size:1.32rem;
+  color:#355c4b;
+  line-height:1.05;
+}
+
+.mini-guide-item span,
+.mini-guide-item em{
+  display:inline-block;
+  margin-top:5px;
+  margin-right:7px;
+  font-size:.78rem;
+  font-style:normal;
+  font-weight:800;
+  color:#7d746a;
+  background:rgba(53,92,75,.08);
+  padding:4px 8px;
+  border-radius:999px;
+}
+
+.mini-guide-item p{
+  margin:8px 0 0;
+  font-size:.92rem;
+  line-height:1.45;
+  color:#5f574f;
+}
+
+.mini-guide-arrow{
+  align-self:center;
+  font-size:1.3rem;
+  opacity:.55;
+}
+
+.mini-guide-item:active{
+  transform:scale(.98);
+}
+/* =========================
+   CAJA COMÚN PRIVADA
+========================= */
+
+.hidden{
+  display:none !important;
+}
+
+.expense-lock{
+  display:flex;
+  justify-content:center;
+  padding:18px 0;
+}
+
+.lock-card{
+  width:100%;
+  max-width:460px;
+  text-align:center;
+  padding:26px;
+  border-radius:28px;
+  background:linear-gradient(135deg,#fffaf2,#eef6f2);
+  box-shadow:0 18px 40px rgba(47,42,38,.10);
+  border:1px solid rgba(47,42,38,.08);
+}
+
+.lock-icon{
+  display:block;
+  font-size:2.6rem;
+  margin-bottom:10px;
+}
+
+.lock-card h3{
+  margin:0 0 8px;
+  font-family:"Fraunces",serif;
+}
+
+.lock-card p{
+  margin:0 0 18px;
+  color:#6f665e;
+}
+
+.family-balance-grid{
+  display:grid;
+  grid-template-columns:1fr;
+  gap:14px;
+  margin:16px 0;
+}
+
+.family-balance-grid article{
+  padding:18px;
+  border-radius:24px;
+  background:rgba(255,255,255,.72);
+  border:1px dashed rgba(47,42,38,.14);
+}
+
+.family-balance-grid p{
+  margin:0;
+  font-size:.78rem;
+  text-transform:uppercase;
+  letter-spacing:.08em;
+  color:#7d746a;
+  font-weight:800;
+}
+
+.family-balance-grid h3{
+  margin:6px 0;
+  font-family:"Caveat",cursive;
+  font-size:1.45rem;
+  color:#355c4b;
+}
+
+.family-balance-grid strong{
+  font-size:1.4rem;
+}
+
+@media (min-width:720px){
+  .family-balance-grid{
+    grid-template-columns:1fr 1fr;
+  }
+}
+/* =========================
+   SMART RECOMMENDATION · NOTA CUADERNO
+========================= */
+
+.smart-recommendation{
+  margin-top:20px;
+}
+
+.smart-rec-card{
+  position:relative;
+  display:flex;
+  align-items:center;
+  gap:16px;
+  max-width:760px;
+  padding:16px 20px 17px;
+  border-radius:24px;
+  background:rgba(255,250,239,.92);
+  border:1px solid rgba(55,48,40,.12);
+  box-shadow:
+    0 14px 30px rgba(0,0,0,.10),
+    3px 4px 0 rgba(55,48,40,.08);
+  transform:rotate(-.35deg);
+}
+
+..smart-rec-card::before{
+  content:"";
+  position:absolute;
+  left:34px;
+  top:-11px;
+  width:120px;
+  height:26px;
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(255,255,255,.82),
+      rgba(240,240,240,.72)
+    );
+
+  border-left:1px solid rgba(255,255,255,.7);
+  border-right:1px solid rgba(255,255,255,.4);
+
+  box-shadow:
+    0 4px 10px rgba(0,0,0,.08),
+    inset 0 1px 0 rgba(255,255,255,.7);
+
+  opacity:.95;
+
+  clip-path:polygon(
+    4% 0%,
+    96% 0%,
+    100% 18%,
+    97% 100%,
+    3% 100%,
+    0% 15%
+  );
+
+  transform:rotate(-2deg);
+}
+
+.smart-rec-card::after{
+  content:"📌";
+  position:absolute;
+  right:18px;
+  top:-17px;
+  font-size:1.6rem;
+  transform:rotate(18deg);
+}
+
+.smart-rec-icon{
+  flex-shrink:0;
+  width:56px;
+  height:56px;
+  display:grid;
+  place-items:center;
+  border-radius:18px;
+  background:#f7efe0;
+  border:1px dashed rgba(55,48,40,.18);
+  font-size:1.9rem;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.8);
+}
+
+.smart-rec-content{
+  display:flex;
+  flex-direction:column;
+  gap:2px;
+}
+
+.smart-rec-label{
+  margin:0;
+  font-family:"Caveat",cursive;
+  font-size:1.18rem;
+  font-weight:700;
+  line-height:1;
+  color:#355c4b;
+}
+
+.smart-rec-content h3{
+  margin:0;
+  font-family:"Fraunces",serif;
+  font-size:1.45rem;
+  line-height:1.08;
+  color:#2f2a26;
+}
+
+.smart-rec-content span{
+  display:block;
+  margin-top:3px;
+  font-family:"Plus Jakarta Sans",sans-serif;
+  font-size:.96rem;
+  line-height:1.38;
+  color:#6b625a;
+}
+
+@media (max-width:640px){
+  .smart-rec-card{
+    align-items:flex-start;
+    padding:15px 16px;
+  }
+
+  .smart-rec-icon{
+    width:48px;
+    height:48px;
+    font-size:1.55rem;
+  }
+
+  .smart-rec-content h3{
+    font-size:1.22rem;
+  }
+}
+/* =========================================
+   HERO DINÁMICO
+========================================= */
+
+.hero.dynamic-sun{
+  background:
+    radial-gradient(circle at top right, rgba(255,214,120,.18), transparent 28%),
+    linear-gradient(135deg,#4f7b68 0%, #355c4b 100%);
+}
+
+.hero.dynamic-cloud{
+  background:
+    radial-gradient(circle at top left, rgba(255,255,255,.10), transparent 25%),
+    linear-gradient(135deg,#5d736d 0%, #445a54 100%);
+}
+
+.hero.dynamic-rain{
+  background:
+    linear-gradient(rgba(18,26,30,.22), rgba(18,26,30,.22)),
+    linear-gradient(135deg,#48605d 0%, #2d4543 100%);
+}
+
+.hero.dynamic-coast{
+  background:
+    radial-gradient(circle at top right, rgba(120,220,255,.16), transparent 28%),
+    linear-gradient(135deg,#447f7b 0%, #2d5f64 100%);
+}
+
+.hero.dynamic-night{
+  background:
+    radial-gradient(circle at top right, rgba(255,220,120,.10), transparent 18%),
+    linear-gradient(135deg,#24343f 0%, #18242b 100%);
+}
+
+/* lluvia visual */
+
+.hero-rain{
+  position:absolute;
+  inset:0;
+  overflow:hidden;
+  pointer-events:none;
+  opacity:.35;
+}
+
+.hero-rain span{
+  position:absolute;
+  width:2px;
+  height:70px;
+  background:linear-gradient(transparent, rgba(255,255,255,.45));
+  animation:rainFall linear infinite;
+}
+
+@keyframes rainFall{
+  from{
+    transform:translateY(-120px);
+  }
+
+  to{
+    transform:translateY(900px);
+  }
+}
+/* =========================================
+   HERO CINEMATOGRÁFICO PREMIUM
+========================================= */
+
+.hero{
+  position:relative;
+  overflow:hidden;
+  transition:
+    background 700ms ease,
+    box-shadow 700ms ease,
+    filter 700ms ease;
+}
+
+.hero::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  background:
+    radial-gradient(circle at 18% 18%, rgba(255,255,255,.18), transparent 26%),
+    linear-gradient(180deg, rgba(255,255,255,.06), transparent 55%);
+  opacity:.55;
+  z-index:0;
+}
+
+.hero > *{
+  position:relative;
+  z-index:2;
+}
+
+.hero-bg,
+.hero-rain,
+.hero-clouds,
+.hero-glow{
+  z-index:1;
+}
+
+/* SOL */
+
+.hero.dynamic-sun{
+  background:
+    radial-gradient(circle at 82% 8%, rgba(255,222,128,.38), transparent 24%),
+    radial-gradient(circle at 10% 20%, rgba(255,255,255,.16), transparent 28%),
+    linear-gradient(135deg,#5f8c73 0%, #355c4b 100%);
+}
+
+.hero.dynamic-sun .hero-glow{
+  opacity:1;
+}
+
+/* NUBLADO */
+
+.hero.dynamic-cloud{
+  background:
+    radial-gradient(circle at 20% 15%, rgba(255,255,255,.18), transparent 28%),
+    radial-gradient(circle at 80% 12%, rgba(255,255,255,.12), transparent 30%),
+    linear-gradient(135deg,#647b74 0%, #3f5751 100%);
+}
+
+.hero.dynamic-cloud .hero-clouds{
+  opacity:.55;
+}
+
+/* LLUVIA */
+
+.hero.dynamic-rain{
+  background:
+    linear-gradient(rgba(18,26,30,.22), rgba(18,26,30,.22)),
+    radial-gradient(circle at 85% 12%, rgba(155,210,230,.12), transparent 28%),
+    linear-gradient(135deg,#48605d 0%, #263f3e 100%);
+}
+
+.hero.dynamic-rain .hero-rain{
+  opacity:.38;
+}
+
+.hero.dynamic-rain .hero-clouds{
+  opacity:.72;
+}
+
+/* COSTA */
+
+.hero.dynamic-coast{
+  background:
+    radial-gradient(circle at 80% 8%, rgba(121,225,255,.25), transparent 28%),
+    radial-gradient(circle at 10% 18%, rgba(255,255,255,.15), transparent 30%),
+    linear-gradient(135deg,#4f918a 0%, #2f6670 100%);
+}
+
+.hero.dynamic-coast .hero-glow{
+  opacity:.75;
+}
+
+/* NOCHE */
+
+.hero.dynamic-night{
+  background:
+    radial-gradient(circle at 82% 10%, rgba(255,224,140,.13), transparent 18%),
+    radial-gradient(circle at 20% 25%, rgba(100,150,180,.10), transparent 30%),
+    linear-gradient(135deg,#24343f 0%, #152129 100%);
+}
+
+.hero.dynamic-night::after{
+  opacity:.24;
+}
+
+/* CAPAS */
+
+.hero-glow{
+  position:absolute;
+  inset:-30%;
+  pointer-events:none;
+  opacity:0;
+  background:
+    radial-gradient(circle at 82% 12%, rgba(255,230,150,.35), transparent 22%),
+    radial-gradient(circle at 12% 22%, rgba(255,255,255,.12), transparent 26%);
+  filter:blur(8px);
+  transition:opacity 700ms ease;
+}
+
+.hero-clouds{
+  position:absolute;
+  inset:0;
+  overflow:hidden;
+  pointer-events:none;
+  opacity:0;
+  transition:opacity 700ms ease;
+}
+
+.hero-clouds::before,
+.hero-clouds::after{
+  content:"";
+  position:absolute;
+  width:360px;
+  height:120px;
+  border-radius:999px;
+  background:rgba(255,255,255,.16);
+  filter:blur(18px);
+  animation:cloudDrift 28s linear infinite;
+}
+
+.hero-clouds::before{
+  top:22px;
+  left:-180px;
+}
+
+.hero-clouds::after{
+  top:95px;
+  left:-260px;
+  width:460px;
+  height:145px;
+  opacity:.65;
+  animation-duration:38s;
+}
+
+@keyframes cloudDrift{
+  from{
+    transform:translateX(0);
+  }
+  to{
+    transform:translateX(calc(100vw + 520px));
+  }
+}
+
+.hero-rain{
+  position:absolute;
+  inset:0;
+  overflow:hidden;
+  pointer-events:none;
+  opacity:0;
+  transition:opacity 700ms ease;
+}
+
+.hero-rain span{
+  position:absolute;
+  width:2px;
+  height:78px;
+  background:linear-gradient(transparent, rgba(255,255,255,.55));
+  animation:rainFall linear infinite;
+}
+
+@keyframes rainFall{
+  from{
+    transform:translateY(-130px) rotate(8deg);
+  }
+  to{
+    transform:translateY(900px) rotate(8deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce){
+  .hero-clouds::before,
+  .hero-clouds::after,
+  .hero-rain span{
+    animation:none;
+  }
+}
+/* =========================
+   NEXT STOP PRO
+========================= */
+
+.next-stop-card small{
+  display:block;
+  margin-top:4px;
+  font-size:.78rem;
+  line-height:1.25;
+  color:rgba(255,255,255,.78);
+  font-weight:600;
+}
+
+.next-stop-card strong{
+  display:block;
+}
+/* =========================
+   FOOD PRO FILTERS
+========================= */
+
+.food-filter-wrap{
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+  margin-bottom:18px;
+}
+
+.food-price-filter,
+.food-tag-filter{
+  display:flex;
+  gap:10px;
+  overflow-x:auto;
+  padding-bottom:4px;
+  scrollbar-width:none;
+}
+
+.food-price-filter::-webkit-scrollbar,
+.food-tag-filter::-webkit-scrollbar{
+  display:none;
+}
+
+.food-price-filter button,
+.food-tag-filter button{
+  flex:none;
+  border:none;
+  border-radius:999px;
+  padding:10px 16px;
+  background:rgba(255,255,255,.75);
+  color:#26443a;
+  font-weight:700;
+  font-size:.83rem;
+  box-shadow:0 6px 18px rgba(0,0,0,.08);
+  transition:.25s;
+}
+
+.food-price-filter button.active,
+.food-tag-filter button.active{
+  background:#355c4b;
+  color:#fff;
+  transform:translateY(-1px);
+}
+
+.food-card-pro{
+  position:relative;
+  overflow:hidden;
+}
+
+.food-card-pro::before{
+  content:"";
+  position:absolute;
+  top:0;
+  left:0;
+  width:5px;
+  height:100%;
+  background:linear-gradient(
+    180deg,
+    #7ba892,
+    #355c4b
+  );
+}
+
+.food-tags{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  margin:14px 0 10px;
+}
+
+.food-tags span{
+  padding:6px 12px;
+  border-radius:999px;
+  background:rgba(53,92,75,.10);
+  color:#355c4b;
+  font-size:.74rem;
+  font-weight:700;
+  letter-spacing:.02em;
+}
+/* =========================
+   FOOD GROUPED BY ZONE
+========================= */
+
+.food-zone-block{
+  margin-bottom:24px;
+}
+
+.food-zone-title{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  margin:18px 0 12px;
+  padding:14px 16px;
+  border-radius:22px;
+  background:rgba(255,250,239,.82);
+  border:1px solid rgba(53,92,75,.10);
+  box-shadow:0 10px 24px rgba(0,0,0,.06);
+}
+
+.food-zone-title > span{
+  width:44px;
+  height:44px;
+  display:grid;
+  place-items:center;
+  border-radius:16px;
+  background:#edf5ef;
+  font-size:1.4rem;
+}
+
+.food-zone-title h3{
+  margin:0;
+  font-family:"Fraunces",serif;
+  color:#2f2a26;
+}
+
+.food-zone-title p{
+  margin:2px 0 0;
+  color:#746b62;
+  font-size:.86rem;
+  font-weight:600;
+}
+
+.food-zone-list{
+  display:grid;
+  gap:14px;
+}
+
+/* TOP RESTAURANTS */
+
+.food-top-card{
+  border:1px solid rgba(190,145,55,.34);
+  box-shadow:
+    0 14px 32px rgba(190,145,55,.12),
+    0 8px 20px rgba(0,0,0,.06);
+}
+
+.food-top-card::before{
+  background:linear-gradient(180deg,#d6a94f,#7b5b21);
+}
+
+.food-top-ribbon{
+  position:absolute;
+  top:14px;
+  right:14px;
+  padding:6px 10px;
+  border-radius:999px;
+  background:#fff4d8;
+  color:#7b5b21;
+  font-size:.72rem;
+  font-weight:900;
+  letter-spacing:.04em;
+  box-shadow:0 6px 14px rgba(0,0,0,.08);
+}
+
+/* PRICE BADGES */
+
+.price-badge{
+  font-weight:800;
+}
+
+.price-economico{
+  background:rgba(62,132,91,.12);
+  color:#2f6f4d;
+}
+
+.price-medio{
+  background:rgba(196,132,42,.14);
+  color:#8a5a18;
+}
+
+.price-premium{
+  background:rgba(47,42,38,.12);
+  color:#2f2a26;
+}
+
+.price-familiar{
+  background:rgba(74,112,180,.12);
+  color:#365684;
+}
+.food-results-summary{
+  margin:4px 0 16px;
+  padding:12px 16px;
+  border-radius:18px;
+  background:rgba(255,250,239,.78);
+  border:1px solid rgba(53,92,75,.10);
+  color:#355c4b;
+  font-weight:800;
+  font-size:.88rem;
+  box-shadow:0 8px 20px rgba(0,0,0,.05);
+}
+/* =========================
+   TOP VIAJE PRO
+========================= */
+
+.top-card-pro{
+  position:relative;
+  overflow:hidden;
+  border:1px solid rgba(190,145,55,.28);
+  background:
+    linear-gradient(135deg, rgba(255,250,239,.96), rgba(255,244,216,.72));
+  box-shadow:
+    0 14px 34px rgba(190,145,55,.12),
+    0 8px 18px rgba(0,0,0,.05);
+}
+
+.top-card-pro::before{
+  content:"";
+  position:absolute;
+  inset:0 auto 0 0;
+  width:6px;
+  background:linear-gradient(180deg,#d6a94f,#7b5b21);
+}
+
+.top-card-head{
+  display:flex;
+  align-items:center;
+  gap:14px;
+  margin-bottom:12px;
+}
+
+.top-icon{
+  width:52px;
+  height:52px;
+  display:grid;
+  place-items:center;
+  flex:none;
+  border-radius:18px;
+  background:#fff4d8;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.8);
+  font-size:1.6rem;
+}
+
+.top-card-head p{
+  margin:0;
+  color:#7b5b21;
+  font-size:.78rem;
+  font-weight:900;
+  text-transform:uppercase;
+  letter-spacing:.08em;
+}
+
+.top-card-head h3{
+  margin:2px 0 0;
+}
+
+.top-empty-card{
+  border:1px dashed rgba(53,92,75,.25);
+}
+/* =========================
+   PENDIENTES PRO
+========================= */
+
+.pending-group{
+  margin-bottom:24px;
+}
+
+.pending-group-title{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  margin:18px 0 12px;
+  padding:14px 16px;
+  border-radius:22px;
+  background:rgba(255,250,239,.82);
+  border:1px solid rgba(53,92,75,.10);
+  box-shadow:0 10px 24px rgba(0,0,0,.06);
+}
+
+.pending-group-title > span{
+  width:44px;
+  height:44px;
+  display:grid;
+  place-items:center;
+  border-radius:16px;
+  background:#edf5ef;
+  font-size:1.35rem;
+}
+
+.pending-group-title h3{
+  margin:0;
+  font-family:"Fraunces",serif;
+  color:#2f2a26;
+}
+
+.pending-group-title p{
+  margin:2px 0 0;
+  color:#746b62;
+  font-size:.86rem;
+  font-weight:700;
+}
+
+.pending-group-list{
+  display:grid;
+  gap:14px;
+}
+
+.pending-card-pro{
+  position:relative;
+  overflow:hidden;
+}
+
+.pending-card-pro::before{
+  content:"";
+  position:absolute;
+  inset:0 auto 0 0;
+  width:5px;
+  background:linear-gradient(180deg,#7ba892,#355c4b);
+}
+
+.pending-card-pro.done{
+  opacity:.78;
+}
+
+.pending-card-pro.done::before{
+  background:linear-gradient(180deg,#a5a5a5,#6f6f6f);
+}
+
+.pending-card-head{
+  display:flex;
+  gap:12px;
+  align-items:center;
+  margin-bottom:10px;
+}
+
+.pending-card-head > span{
+  width:48px;
+  height:48px;
+  display:grid;
+  place-items:center;
+  flex:none;
+  border-radius:16px;
+  background:#edf5ef;
+  font-size:1.4rem;
+}
+
+.pending-card-head p{
+  margin:0;
+  font-size:.76rem;
+  font-weight:900;
+  text-transform:uppercase;
+  letter-spacing:.07em;
+  color:#6d7d72;
+}
+
+.pending-card-head h3{
+  margin:2px 0 0;
+}
+

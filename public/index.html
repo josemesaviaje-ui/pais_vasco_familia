@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#355c4b" />
+
+  <title>País Vasco en Familia · Diario de Ruta</title>
+
+  <link rel="manifest" href="./manifest.json" />
+  <link rel="stylesheet" href="./css/app.css" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600;700&family=Fraunces:wght@600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+
+<body>
+  <div id="app" class="app-shell">
+
+    <header class="hero">
+      <div class="hero-bg"></div>
+      <div class="hero-rain" id="heroRain"></div>
+      <div class="hero-clouds" id="heroClouds"></div>
+      <div class="hero-glow" id="heroGlow"></div>
+      
+
+      <div class="hero-top">
+        <div>
+          <p class="eyebrow">Diario ilustrado · 2–9 Agosto</p>
+          <h1>País Vasco en Familia</h1>
+          <p class="subtitle">Familia Pulido - Cubero · Familia Mesa - Muñoz</p>
+        </div>
+
+        <button class="install-btn" id="installBtn">
+          📲 Instalar
+        </button>
+      </div>
+
+      <div class="dashboard-grid">
+        <article class="dash-card main">
+          <span class="sketch-icon">⏳</span>
+          <p>Cuenta atrás</p>
+          <strong id="countdown">Calculando...</strong>
+        </article>
+
+        <article class="dash-card">
+          <span class="sketch-icon">🚗</span>
+          <p>Kilómetros</p>
+          <strong id="totalKm">~2.100 km</strong>
+        </article>
+
+        <article class="dash-card">
+          <span class="sketch-icon" id="nextWeatherIcon">🌦️</span>
+          <p id="nextWeatherPlace">Tiempo próxima parada</p>
+          <strong id="nextWeatherText">Cargando...</strong>
+        </article>
+        
+        <article class="dash-card next-stop-card">
+  <span class="sketch-icon" id="nextStopIcon">📍</span>
+  <p>Próxima parada</p>
+  <strong id="nextStopText">Preparando...</strong>
+  <small id="nextStopMeta">Calculando ruta...</small>
+</article>
+      </div>
+
+      <section class="smart-recommendation" id="smartRecommendation">
+        <div class="smart-rec-card">
+          <span class="smart-rec-icon" id="smartRecIcon">✨</span>
+
+          <div class="smart-rec-content">
+            <p class="smart-rec-label">Hoy recomendamos</p>
+
+            <h3 id="smartRecTitle">
+              Preparando recomendaciones...
+            </h3>
+
+            <span id="smartRecText">
+              La app está organizando vuestro viaje.
+            </span>
+          </div>
+        </div>
+      </section>
+    </header>
+
+    <main class="main-content">
+
+      <section class="view active" id="view-home">
+        <div class="section-title">
+          <span>📓</span>
+          <div>
+            <h2>Resumen del viaje</h2>
+            <p>Ruta familiar con alojamientos, visitas, comidas, gastos y recuerdos.</p>
+          </div>
+        </div>
+
+        <div class="today-card">
+          <div>
+            <p class="label">Próximo gran plan</p>
+            <h3 id="nextPlanTitle">Preparando ruta...</h3>
+            <p id="nextPlanText">Cargando datos del viaje.</p>
+          </div>
+          <span class="big-doodle">🗺️</span>
+        </div>
+
+        <div class="quick-actions">
+          <button data-go="days">📅 Ver días</button>
+          <button data-go="food">🍴 Comer</button>
+          <button data-go="expenses">💸 Gastos</button>
+          <button data-go="photos">📸 Fotos</button>
+        </div>
+        
+        <div class="weather-panel">
+  <div>
+    <p class="label">Estado inteligente</p>
+    <h3 id="smartWeatherTitle">🌤️ Preparando recomendación</h3>
+    <p id="smartWeatherText">Selecciona el estado del día para adaptar planes.</p>
+  </div>
+
+  <div class="weather-actions">
+    <button data-weather="sun">☀️ Sol</button>
+    <button data-weather="cloud">☁️ Nublado</button>
+    <button data-weather="rain">🌧️ Lluvia</button>
+    <button data-weather="coast">🌊 Costa ideal</button>
+  </div>
+</div>
+
+      </section>
+
+      <section class="view" id="view-days">
+        <div class="section-title">
+          <span>📅</span>
+          <div>
+            <h2>Día a día</h2>
+            <p>Plan detallado con rutas, consejos, comida y avisos.</p>
+          </div>
+        </div>
+
+        <div class="days-tabs" id="daysTabs"></div>
+        <div class="day-detail" id="dayDetail"></div>
+      </section>
+
+      <section class="view" id="view-route">
+        <div class="section-title">
+          <span>🗺️</span>
+          <div>
+            <h2>Ruta en coche</h2>
+            <p>Etapas, kilómetros, tiempos y accesos rápidos a mapas.</p>
+          </div>
+        </div>
+
+        <div id="routeList" class="route-list"></div>
+      </section>
+
+      <section class="view" id="view-hotels">
+        <div class="section-title">
+          <span>🏡</span>
+          <div>
+            <h2>Alojamientos</h2>
+            <p>Reservas, direcciones, costes y horarios.</p>
+          </div>
+        </div>
+
+        <div id="hotelList" class="card-list"></div>
+      </section>
+
+      <section class="view" id="view-food">
+        <div class="section-title">
+          <span>🍴</span>
+          <div>
+            <h2>Comer</h2>
+            <p>Opciones económicas, medias y premium por zona.</p>
+          </div>
+        </div>
+
+        <div class="food-filter-wrap">
+
+  <div class="budget-filter food-price-filter">
+    <button class="active" data-food-price="all">Todo</button>
+    <button data-food-price="economico">€ Económico</button>
+    <button data-food-price="medio">€€ Medio</button>
+    <button data-food-price="premium">€€€ Premium</button>
+  </div>
+
+  <div class="budget-filter food-tag-filter">
+    <button class="active" data-food-tag="all">Todo tipo</button>
+    <button data-food-tag="familiar">👨‍👩‍👧 Familiar</button>
+    <button data-food-tag="rapido">⚡ Rápido</button>
+    <button data-food-tag="pintxos">🍢 Pintxos</button>
+    <button data-food-tag="dulce">🍰 Dulces</button>
+    <button data-food-tag="terraza">🌿 Terraza</button>
+    <button data-food-tag="vistas">🌊 Vistas</button>
+    <button data-food-tag="imprescindible">⭐ TOP</button>
+  </div>
+
+</div>
+
+        <div class="food-results-summary" id="foodResultsSummary">
+  🍴 Cargando opciones...
+</div>
+
+        <div id="foodList" class="card-list"></div>
+      </section>
+
+<section class="view" id="view-expenses">
+  <div class="section-title">
+    <span>💳</span>
+    <div>
+      <h2>Caja común familiar</h2>
+      <p>Zona privada para adultos: pagos, Bizum y equilibrio entre familias.</p>
+    </div>
+  </div>
+
+  <div id="expenseLock" class="expense-lock">
+    <div class="lock-card">
+      <span class="lock-icon">🔐</span>
+      <h3>Zona privada de pagos</h3>
+      <p>Introduce el PIN familiar para ver la caja común.</p>
+
+      <form id="expensePinForm" class="comic-form">
+        <input name="pin" type="password" inputmode="numeric" placeholder="PIN familiar" required />
+        <button>Entrar</button>
+      </form>
+    </div>
+  </div>
+
+  <div id="expensePrivate" class="expense-private hidden">
+    <div class="expense-summary">
+      <article>
+        <p>Total caja común</p>
+        <strong id="expenseTotal">0 €</strong>
+      </article>
+
+      <article>
+        <p>Situación</p>
+        <strong id="expenseBalance">Todo tranquilo</strong>
+      </article>
+    </div>
+
+    <div class="family-balance-grid">
+      <article>
+        <p>Ha adelantado</p>
+        <h3>Familia Pulido - Cubero</h3>
+        <strong id="paidFamilyA">0 €</strong>
+      </article>
+
+      <article>
+        <p>Ha adelantado</p>
+        <h3>Familia Mesa - Muñoz</h3>
+        <strong id="paidFamilyB">0 €</strong>
+      </article>
+    </div>
+
+    <form id="expenseForm" class="comic-form">
+      <input name="title" placeholder="Concepto: comida, gasolina, compra..." required />
+      <input name="amount" type="number" step="0.01" placeholder="Importe €" required />
+
+      <select name="payer">
+        <option>Familia Pulido - Cubero</option>
+        <option>Familia Mesa - Muñoz</option>
+      </select>
+
+      <button>➕ Añadir pago</button>
+    </form>
+
+    <div id="expenseList" class="card-list"></div>
+  </div>
+</section>
+
+      <section class="view" id="view-photos">
+        <div class="section-title">
+          <span>📸</span>
+          <div>
+            <h2>Fotos del viaje</h2>
+            <p>Álbum compartido. Ahora local, luego sincronizado con servidor.</p>
+          </div>
+        </div>
+
+        <form id="photoForm" class="photo-upload-form">
+  <div class="upload-box">
+    <span>📸</span>
+
+    <p>
+      Añadir recuerdos del viaje
+    </p>
+
+    <select name="day">
+      <option>Día 2</option>
+      <option>Día 3</option>
+      <option>Día 4</option>
+      <option>Día 5</option>
+      <option>Día 6</option>
+      <option>Día 7</option>
+      <option>Día 8</option>
+      <option>Día 9</option>
+    </select>
+
+    <input
+      name="caption"
+      placeholder="Descripción o recuerdo..."
+    />
+
+    <input
+      id="photoInput"
+      type="file"
+      accept="image/*"
+      multiple
+    />
+
+    <button type="submit">
+      ➕ Guardar fotos
+    </button>
+  </div>
+</form>
+
+        <div id="photoGrid" class="photo-grid"></div>
+      </section>
+
+      <section class="view" id="view-chat">
+        <div class="section-title">
+          <span>💬</span>
+          <div>
+            <h2>Chat del grupo</h2>
+            <p>Mensajes locales ahora. Después chat sincronizado en tiempo real.</p>
+          </div>
+        </div>
+
+        <div id="chatBox" class="chat-box"></div>
+
+        <form id="chatForm" class="chat-form">
+
+  <select name="author">
+    <option>Familia Pulido - Cubero</option>
+    <option>Familia Mesa - Muñoz</option>
+    <option>Mensaje del viaje</option>
+  </select>
+
+  <input
+    name="message"
+    placeholder="Escribe un mensaje..."
+    required
+  />
+
+  <button>
+    Enviar
+  </button>
+
+</form>
+      </section>
+      
+      <section class="view" id="view-bookings">
+  <div class="section-title">
+    <span>🎟️</span>
+    <div>
+      <h2>Reservas y entradas</h2>
+      <p>Restaurantes, visitas, entradas y recordatorios importantes.</p>
+    </div>
+  </div>
+  
+  <form id="bookingForm" class="booking-form">
+  <input name="title" placeholder="Nombre reserva o entrada" required />
+
+  <select name="day">
+    <option>Día 2</option>
+    <option>Día 3</option>
+    <option>Día 4</option>
+    <option>Día 5</option>
+    <option>Día 6</option>
+    <option>Día 7</option>
+    <option>Día 8</option>
+    <option>Día 9</option>
+  </select>
+
+  <select name="type">
+    <option>Restaurante</option>
+    <option>Visita</option>
+    <option>Entrada</option>
+    <option>Actividad</option>
+    <option>Parking</option>
+    <option>Otro</option>
+  </select>
+
+  <select name="priority">
+    <option value="media">Prioridad media</option>
+    <option value="alta">Prioridad alta</option>
+    <option value="baja">Prioridad baja</option>
+  </select>
+
+  <input name="cost" placeholder="Coste: Gratis, 20€, €€, consultar..." />
+  <input name="note" placeholder="Nota útil o recordatorio" />
+  <input name="maps" placeholder="Enlace Google Maps opcional" />
+
+  <button>➕ Añadir reserva</button>
+</form>
+
+  <div id="bookingList" class="card-list"></div>
+  <button class="back-more-btn" data-go="more">⬅️ Volver a Más opciones</button>
+</section>
+
+    <section class="view" id="view-checklist">
+  <div class="section-title">
+    <span>🧳</span>
+    <div>
+      <h2>Checklist del viaje</h2>
+      <p>Todo preparado antes de salir.</p>
+    </div>
+  </div>
+
+  <form id="checklistForm" class="comic-form">
+    <select name="family">
+      <option>General</option>
+      <option>Familia Pulido - Cubero</option>
+      <option>Familia Mesa - Muñoz</option>
+    </select>
+
+    <input name="task" placeholder="Añadir elemento..." required />
+
+    <button>➕ Añadir</button>
+  </form>
+
+  <div id="checklistGroups"></div>
+
+  <button class="back-more-btn" data-go="more">⬅️ Volver a Más opciones</button>
+</section>
+
+      <section class="view" id="view-documents">
+  <div class="section-title">
+    <span>🪪</span>
+    <div>
+      <h2>Documentos importantes</h2>
+      <p>Reservas, notas, enlaces y documentos útiles del viaje.</p>
+    </div>
+  </div>
+
+  <form id="documentForm" class="booking-form">
+  <input name="title" placeholder="Nombre del documento" required />
+
+  <select name="type">
+    <option>Reserva Burgos</option>
+    <option>Reserva Donamaría</option>
+    <option>Reserva Turégano</option>
+    <option>Entrada / actividad</option>
+    <option>DNI / documentación</option>
+    <option>Enlace útil</option>
+    <option>Ticket / justificante</option>
+    <option>Nota importante</option>
+    <option>Otro</option>
+  </select>
+
+  <input name="note" placeholder="Nota o detalle importante" />
+  <input name="link" placeholder="Enlace opcional" />
+
+  <button>➕ Añadir documento</button>
+</form>
+
+  <div id="documentList" class="card-list"></div>
+
+  <button class="back-more-btn" data-go="more">⬅️ Volver a Más opciones</button>
+</section>
+
+    <section class="view" id="view-top">
+  <div class="section-title">
+    <span>🏆</span>
+    <div>
+      <h2>TOP del viaje</h2>
+      <p>Sitios favoritos, planes brutales y recuerdos para no olvidar.</p>
+    </div>
+  </div>
+
+  <div id="topList" class="card-list"></div>
+
+  <button class="back-more-btn" data-go="more">⬅️ Volver a Más opciones</button>
+</section>
+
+    <section class="view" id="view-pending">
+  <div class="section-title">
+    <span>📌</span>
+    <div>
+      <h2>Pendientes del viaje</h2>
+      <p>Sitios por ver, ideas flexibles y planes para decidir sobre la marcha.</p>
+    </div>
+  </div>
+
+  <form id="pendingForm" class="booking-form">
+    <input name="title" placeholder="Pendiente: sitio, idea, comida..." required />
+
+    <select name="day">
+      <option>General</option>
+      <option>Día 2</option>
+      <option>Día 3</option>
+      <option>Día 4</option>
+      <option>Día 5</option>
+      <option>Día 6</option>
+      <option>Día 7</option>
+      <option>Día 8</option>
+      <option>Día 9</option>
+    </select>
+
+    <select name="type">
+      <option>Plan</option>
+      <option>Restaurante</option>
+      <option>Mirador</option>
+      <option>Playa</option>
+      <option>Compra</option>
+      <option>Reserva</option>
+      <option>Otro</option>
+    </select>
+
+    <input name="note" placeholder="Nota opcional" />
+
+    <button>➕ Añadir pendiente</button>
+  </form>
+
+  <div id="pendingList" class="card-list"></div>
+
+  <button class="back-more-btn" data-go="more">⬅️ Volver a Más opciones</button>
+</section>
+
+      <section class="view" id="view-more">
+        <div class="section-title">
+          <span>⚙️</span>
+          <div>
+            <h2>Más opciones</h2>
+            <p>Reservas, documentos, ajustes y sincronización.</p>
+          </div>
+        </div>
+
+        <div class="more-grid">
+
+  <article class="more-card" data-go="bookings">
+    <span class="more-icon">🎟️</span>
+
+    <div>
+      <h3>Reservas</h3>
+      <p>Entradas, actividades y restaurantes.</p>
+    </div>
+  </article>
+
+  <article class="more-card" data-go="documents">
+    <span class="more-icon">🪪</span>
+
+    <div>
+      <h3>Documentos</h3>
+      <p>DNI, enlaces, tickets y notas.</p>
+    </div>
+  </article>
+
+  <article class="more-card" data-go="checklist">
+    <span class="more-icon">🧳</span>
+
+    <div>
+      <h3>Checklist</h3>
+      <p>Todo preparado antes de salir.</p>
+    </div>
+  </article>
+  
+  <article class="more-card" data-go="top">
+  <span class="more-icon">🏆</span>
+
+  <div>
+    <h3>TOP viaje</h3>
+    <p>Favoritos, sitios brutales y recuerdos.</p>
+  </div>
+</article>
+
+    <article class="more-card" data-go="pending">
+  <span class="more-icon">📌</span>
+
+  <div>
+    <h3>Pendientes</h3>
+    <p>Planes, sitios y cosas por decidir.</p>
+  </div>
+</article>
+
+  <article class="more-card" id="weatherShortcut" data-rain-plan>
+    <span class="more-icon">☔</span>
+
+    <div>
+      <h3>Plan lluvia</h3>
+      <p>Ideas rápidas según el tiempo.</p>
+    </div>
+  </article>
+
+  <article class="more-card" id="syncShortcut" data-sync-now>
+    <span class="more-icon">🔄</span>
+
+    <div>
+      <h3>Sincronizar</h3>
+      <p>Guardar datos y actualizar viaje.</p>
+    </div>
+  </article>
+
+  <article class="more-card" id="exportShortcut" data-export-expenses>
+    <span class="more-icon">📤</span>
+
+    <div>
+      <h3>Exportar</h3>
+      <p>Resumen de gastos y recuerdos.</p>
+    </div>
+  </article>
+
+</div>
+      </section>
+
+    </main>
+
+    <nav class="bottom-nav">
+      <button class="active" data-view="home">🏠<span>Inicio</span></button>
+      <button data-view="days">📅<span>Días</span></button>
+      <button data-view="route">🗺️<span>Ruta</span></button>
+      <button data-view="hotels">🏡<span>Hotel</span></button>
+      <button data-view="food">🍴<span>Comer</span></button>
+      <button data-view="expenses">💸<span>Gastos</span></button>
+      <button data-view="photos">📸<span>Fotos</span></button>
+      <button data-view="chat">💬<span>Chat</span></button>
+      <button data-view="more">⚙️<span>Más</span></button>
+    </nav>
+
+  </div>
+
+  <script src="./js/data.js"></script>
+  <script src="http://127.0.0.1:3050/socket.io/socket.io.js"></script>
+  <script src="./js/app.js"></script>
+</body>
+</html>
