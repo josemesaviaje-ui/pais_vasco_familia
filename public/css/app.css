@@ -4265,3 +4265,79 @@ select{
     font-size:.72rem !important;
   }
 }
+/* =====================================================
+   FIX DEFINITIVO BARRA INFERIOR MÓVIL
+===================================================== */
+
+@media(max-width:760px){
+
+  .bottom-nav{
+    position:fixed !important;
+    left:50% !important;
+    right:auto !important;
+    bottom:12px !important;
+
+    width:calc(100vw - 24px) !important;
+    max-width:520px !important;
+
+    transform:translateX(-50%) !important;
+
+    display:flex !important;
+    align-items:center !important;
+    justify-content:space-around !important;
+    gap:4px !important;
+
+    padding:8px 10px !important;
+    border-radius:28px !important;
+
+    overflow-x:auto !important;
+    overflow-y:hidden !important;
+
+    background:rgba(255,250,242,.96) !important;
+    border:1px solid rgba(47,42,38,.10) !important;
+    box-shadow:0 14px 32px rgba(0,0,0,.16) !important;
+    backdrop-filter:blur(14px) !important;
+
+    z-index:9999 !important;
+  }
+
+  .bottom-nav button{
+    flex:1 0 auto !important;
+    min-width:58px !important;
+    height:64px !important;
+
+    display:flex !important;
+    flex-direction:column !important;
+    align-items:center !important;
+    justify-content:center !important;
+
+    padding:7px 8px !important;
+    border-radius:20px !important;
+
+    font-size:1.05rem !important;
+    line-height:1 !important;
+  }
+
+  .bottom-nav button span{
+    display:block !important;
+    margin-top:5px !important;
+
+    font-size:.72rem !important;
+    line-height:1 !important;
+    white-space:nowrap !important;
+  }
+
+  .bottom-nav button.active{
+    background:#355c4b !important;
+    color:#fffaf2 !important;
+    box-shadow:0 8px 18px rgba(53,92,75,.22) !important;
+  }
+
+  .main-content{
+    padding-bottom:130px !important;
+  }
+
+  #view-chat{
+    padding-bottom:140px !important;
+  }
+}
