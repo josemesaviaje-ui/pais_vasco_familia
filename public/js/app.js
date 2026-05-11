@@ -2408,28 +2408,6 @@ function bindFoodFilter() {
   });
 }
 
-  function setupInstall() {
-    let deferredPrompt = null;
-    const btn = $("installBtn");
-
-    window.addEventListener("beforeinstallprompt", (e) => {
-      e.preventDefault();
-      deferredPrompt = e;
-      btn.style.display = "inline-flex";
-    });
-
-    btn.addEventListener("click", async () => {
-      if (!deferredPrompt) {
-        alert("Para instalar: menú del navegador → Añadir a pantalla de inicio.");
-        return;
-      }
-
-      deferredPrompt.prompt();
-      await deferredPrompt.userChoice;
-      deferredPrompt = null;
-    });
-  }
-
   function registerServiceWorker() {
     if ("serviceWorker" in navigator) {
       navigator.serviceWorker.register("./service-worker.js").catch(() => {});
@@ -2878,8 +2856,6 @@ $("dayDetail").addEventListener(
   "click",
   handleFlexiblePlanActions
 );
-
-setupInstall();
 
     const expensePinForm = $("expensePinForm");
 if (expensePinForm) {
